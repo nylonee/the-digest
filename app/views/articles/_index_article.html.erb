@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+  	<h2><%= article.title %> <small>Published On: <%= article.date_time %></small></h2>
+  	<% unless article.tag_list.empty? %>
+  		<p>Tagged: <%= article.tag_list.join(', ') %></p>
+  	<% end %>
+  	<div class="btn-group pull-right" role="group">
+	  	<%= link_to 'Show', article, class: "btn btn-default" %>
+	  </div>
+  </div>
+  <% if article.author %>
+	<div class="panel-footer">Written By <%=article.author %></div>
+  <% end %>
+</div>
+

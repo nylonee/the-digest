@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+  	<h3><%= @article.title %></h3>
+  </div>
+
+
+  <div class="panel-body">
+    <p>Source : <%= @article.source.name %> </p>
+    <% if @article.author %>
+      <p>Written by <%= @article.author %> </p>
+    <% end %>
+    
+    <p> Publisehd on <%= @article.date_time %></p>
+
+    <% if @article.summary %>
+      <p>Summary : <%= @article.summary %></p>
+    <% end %>
+
+    <% if @article.image %>
+      <p>Image Link : <%= @article.image %></p>
+    <% end %>
+  	
+    <p>Source Link : <%=@article.link%></p>
+
+  </div>
+
+</div>
+
+
+<div class="btn-group pull-right" role="group">
+    <%= link_to 'Back', :back , class: "btn btn-default" %>
+</div>
+
+
