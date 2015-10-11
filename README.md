@@ -2,9 +2,10 @@
 ```
 mkdir ~/Workspace
 cd ~/Workspace
-git clone git@bitbucket.org:nylonee/the-digest.git
+git clone https://<YOURUSERNAME>@bitbucket.org/nylonee/the-digest.git
 cd ~/Workspace/the-digest
 ```
+Note: Replace <YOURUSERNAME> with your bitbucket username!
 
 ** Deployment Instructions (via terminal) **
 ```
