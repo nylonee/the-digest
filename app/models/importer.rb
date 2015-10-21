@@ -33,6 +33,9 @@ class Importer
     new_york = Scrape::TheNewYorkTimesScraper.new
     @new_articles << new_york.scrape
 
+		age = Scrape::TheAgeScraper.new
+		@new_articles << age.scrape
+
     @new_articles = @new_articles.flatten
 
 	end
@@ -48,6 +51,3 @@ class Importer
 	end
 
 end
-
-
-
