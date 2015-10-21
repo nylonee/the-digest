@@ -26,26 +26,8 @@ class ArticlesController < ApplicationController
 
   # Refresh the articles by calling the scrape function from all the importers
   def refresh
-    sbs_impt = TheSbsImporter.new
-    sbs_impt.scrape
 
-    guardian_impt = TheGuardianImporter.new
-    guardian_impt.scrape
-
-    sydney_impt = TheSydneyMorningHeraldImporter.new
-    sydney_impt.scrape
-
-    new_york_impt_fashion = TheNewYorkTimesImporter.new("fashion")
-    new_york_impt_fashion.scrape
-
-    new_york_impt_science = TheNewYorkTimesImporter.new("science")
-    new_york_impt_science.scrape
-
-    new_york_impt_singer = TheNewYorkTimesImporter.new("singer")
-    new_york_impt_singer.scrape
-
-    age_impt = TheAgeImmporter.new
-    age_imp.scrape
+    Importer.new.import_all
 
     # Redirect to articles_path
     redirect_to articles_path
