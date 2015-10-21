@@ -10,8 +10,6 @@ Note: Replace <YOURUSERNAME> with your bitbucket username!
 ** Deployment Instructions (via terminal) **
 ```
 bundle install
-rake db:create
-rake db:seed
-rake db:migrate
+rake db:drop db:create db:seed db:migrate
 rails s
 ```
