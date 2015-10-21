@@ -50,13 +50,14 @@ module Scrape
 
 
             # Make a template dictionary to put @articles
+            # TODO: Update date_time String to DateTime
             temp = {
               :author => nil,
               :title => item.title,
               :summary => summary,
               :image => img,
               :link => item.link,
-              :date_time => item.pubDate.to_s,
+              :date_time => Date.parse(item.pubDate.to_s),
               :categories => nil
             }
 
