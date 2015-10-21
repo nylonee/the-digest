@@ -52,19 +52,6 @@ module Scrape
           break
         end
 
-        # Try to get the author of this article
-        # If any error occurs doing it, set author as nil
-        begin
-          author = ''
-          each_article['byline']['person'].each do |person|
-            author += person['firstname'] + ' '
-            author += person['lastname']
-            break
-          end
-        rescue
-          author = nil
-        end
-
         # Author field is sometimes an empty array, prevent a TypeError
         # Standardize the author input
         author = each_article['byline'].is_a?(Array) ?
