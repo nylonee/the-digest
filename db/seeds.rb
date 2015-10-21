@@ -10,8 +10,7 @@
 Source.create(name: "The Guardian")
 Source.create(name: "The SBS")
 Source.create(name: "The Sydney Morning Herald")
-Source.create(name: "The New York Times", keyword: "science")
-Source.create(name: "The New York Times", keyword: "singer")
-Source.create(name: "The New York Times", keyword: "fashion")
+Source.create(name: "The New York Times")
+Source.create(name: "The ABC")
 
 
