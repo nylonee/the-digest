@@ -5,6 +5,10 @@ include Scrape
 # importer class which import new articles using Scrape and Tag modules
 class Importer
 
+	def initialize
+		@new_articles = []
+	end
+
 	# import all new articles
 	def import_all
 		scrape_all
@@ -15,26 +19,35 @@ class Importer
 	# scrape all new articles
 	def scrape_all
 		abc = Scrape::TheAbcScraper.new
-		abc.scrape
+		@new_articles << abc.scrape
 
 		sbs = Scrape::TheSbsScraper.new
-    sbs.scrape
+    @new_articles << sbs.scrape
 
     guardian = Scrape::TheGuardianScraper.new
-    guardian.scrape
+    @new_articles << guardian.scrape
 
     sydney = Scrape::TheSydneyMorningHeraldScraper.new
-    sydney.scrape
+    @new_articles << sydney.scrape
 
     new_york = Scrape::TheNewYorkTimesScraper.new
-    new_york.scrape		
-    
+    @new_articles << new_york.scrape
+
+    @new_articles = @new_articles.flatten
+
 	end
 
 
 	# tag all new articles
 	def tag_all
-
+		@new_articles.each do |a|
+			Tag::TagBySource.tag_by_source(a)
+			a.tag_list = a.tag_list.uniq
+			a.save
+		end
 	end
 
 end
+
+
+
