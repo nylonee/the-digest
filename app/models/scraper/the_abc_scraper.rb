@@ -36,10 +36,20 @@ class TheAbcScraper < Scraper
             break
           end
 
-
-          regex=/<dc:creator>(.*)<\/dc:creator>/  
-          regex.match(item.to_s)  
+          # Get the author
+          regex_author=/<dc:creator>(.*)<\/dc:creator>/  
+          regex_author.match(item.to_s)  
           author = $1
+
+
+          # Get categories values
+          regex_category=/<category>(.*)<\/category>/ 
+
+          categories = []
+          item.categories.each do |category|
+            regex_category.match(category.to_s)  
+            categories.push($1)   
+          end
 
 
           # Make a template dictionary to put @articles
@@ -49,7 +59,8 @@ class TheAbcScraper < Scraper
             :summary => item.description.to_s,
             :image => nil,
             :date_time => item.pubDate.to_s,
-            :link => item.link
+            :link => item.link,
+            :categories => categories.join(',')
           }
         
           # Put the object into articles array

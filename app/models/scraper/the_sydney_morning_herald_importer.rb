@@ -58,7 +58,8 @@ class TheSydneyMorningHeraldScraper < Scraper
             :summary => summary,
             :image => img,
             :link => item.link,
-            :date_time => item.pubDate.to_s
+            :date_time => item.pubDate.to_s,
+            :categories => nil
           }
 
           # Put the object into articles array

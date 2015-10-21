@@ -10,27 +10,9 @@ require 'engtagger'
 class TheNewYorkTimesScraper < Scraper
 
   # Initialize by getting a keyword to set the usl to parse
-  def initialize (keyword)
-    @articles = []
-    # array of arrays of keywords to use as tags
-    @extracted_tags = []
-    @keyword = keyword
-	  @source = Source.find_by(name: 'The New York Times', keyword: keyword)
-
-    # Find out the title of the last article of this source
-	  if Article.where(source: @source).count != 0
-	   	@last_title = Article.where(source: @source).last.title
-    else
-      @last_title = nil
-	  end
+  def initialize
+    super('The New York Times')
 	end
-
-
-  # Call scrpae_with_extracted_tags since this article contains tag session.
-	def scrape
-    scrape_with_extracted_tags
-  end
-
 
 
 	private
@@ -40,7 +22,7 @@ class TheNewYorkTimesScraper < Scraper
 
 			# Define the URL
       url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q='
-      url += @keyword
+      url += 'science'
       url += '&sort=newest&page=1&api-key=4368bba38fc93f9f546ca5a320bafad0%3A13%3A72738011'
    
       # Define the HTTP object
@@ -88,7 +70,15 @@ class TheNewYorkTimesScraper < Scraper
           image = media['url']
           break
         end
-                
+             
+
+        # Get all the keywords to use as tags
+        keywords = []
+        each_article['keywords'].each do |keyword|
+          keywords << keyword['value']
+        end
+        keywords = keywords.join(',')
+
 
         # Make a template dictionary to put @articles
         temp = {
@@ -97,18 +87,10 @@ class TheNewYorkTimesScraper < Scraper
           :summary => each_article['snippet'],
           :image => image,
           :date_time => each_article['pub_date'].to_s,
-          :link => each_article['web_url']
+          :link => each_article['web_url'],
+          :categories => keywords
         }
 
-        # Get all the keywords to use as tags
-        keywords = []
-        each_article['keywords'].each do |keyword|
-          keywords << keyword['value']
-        end
-
-        # put the keyword array into @extracted_tags to use later
-        @extracted_tags << keywords
-      
         # put this article into the array of articles
         @articles << temp
       end

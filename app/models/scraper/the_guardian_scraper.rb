@@ -16,12 +16,6 @@ class TheGuardianScraper < Scraper
 	end
 
 
-  # Call scrpae_with_extracted_tags since this article contains tag session.
-	def scrape
-    scrape_with_extracted_tags
-  end
-
-
 
 	private
     # Retriving data using the rss url
@@ -58,11 +52,10 @@ class TheGuardianScraper < Scraper
           :summary => nil,
           :image => nil,
           :date_time => each_article['webPublicationDate'].to_s,
-          :link => each_article['webUrl']
+          :link => each_article['webUrl'],
+          :categories => each_article['sectionId']
         }
 
-        # Put a sectionId value to use as a tag
-        @extracted_tags << each_article['sectionId']
       
         # put this article into the array of articles
         @articles << temp

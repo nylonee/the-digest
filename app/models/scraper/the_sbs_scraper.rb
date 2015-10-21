@@ -42,7 +42,8 @@ class TheSbsScraper < Scraper
             :summary => item.description,
             :image => nil,
             :date_time => item.pubDate.to_s,
-            :link => item.link
+            :link => item.link,
+            :categories => nil
           }
         
           # Put the object into articles array
