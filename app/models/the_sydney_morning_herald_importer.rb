@@ -63,6 +63,7 @@ class TheSydneyMorningHeraldImporter < Importer
 
           # Put the object into articles array
           @articles << temp
+
         end
       end
     end
