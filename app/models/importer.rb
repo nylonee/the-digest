@@ -18,23 +18,26 @@ class Importer
 
 	# scrape all new articles
 	def scrape_all
-		abc = Scrape::TheAbcScraper.new
-		@new_articles << abc.scrape
 
-		sbs = Scrape::TheSbsScraper.new
-    @new_articles << sbs.scrape
+		ActiveRecord::Base.transaction do
+			abc = Scrape::TheAbcScraper.new
+			@new_articles << abc.scrape
 
-    guardian = Scrape::TheGuardianScraper.new
-    @new_articles << guardian.scrape
+			sbs = Scrape::TheSbsScraper.new
+	    @new_articles << sbs.scrape
 
-    sydney = Scrape::TheSydneyMorningHeraldScraper.new
-    @new_articles << sydney.scrape
+	    guardian = Scrape::TheGuardianScraper.new
+	    @new_articles << guardian.scrape
 
-    new_york = Scrape::TheNewYorkTimesScraper.new
-    @new_articles << new_york.scrape
+	    sydney = Scrape::TheSydneyMorningHeraldScraper.new
+	    @new_articles << sydney.scrape
 
-		age = Scrape::TheAgeScraper.new
-		@new_articles << age.scrape
+	    new_york = Scrape::TheNewYorkTimesScraper.new
+	    @new_articles << new_york.scrape
+
+			age = Scrape::TheAgeScraper.new
+			@new_articles << age.scrape
+		end
 
     @new_articles = @new_articles.flatten
 
@@ -43,10 +46,12 @@ class Importer
 
 	# tag all new articles
 	def tag_all
-		@new_articles.each do |a|
-			Tag::TagBySource.tag_by_source(a)
-			a.tag_list = a.tag_list.uniq
-			a.save
+		ActiveRecord::Base.transaction do
+			@new_articles.each do |a|
+				Tag::TagBySource.tag_by_source(a)
+				a.tag_list = a.tag_list.uniq
+				a.save
+			end
 		end
 	end
 
