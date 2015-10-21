@@ -27,7 +27,7 @@ class TheSydneyMorningHeraldImporter < Importer
         feed = RSS::Parser.parse(rss, false)
         # Iterate each item and scrape information
         feed.items.each do |item|
-          
+
           # If the title of thie article matches the title of the last saved article,
           # stop scraping to avoid from saving duplicates in database
           if !@last_title.nil? and @last_title.eql? item.title
@@ -45,11 +45,11 @@ class TheSydneyMorningHeraldImporter < Importer
           end
 
           # Define regex to pull out a pure description from description
-          rgx_sum =  /<\/p>[A-Z](.)+\./ 
+          rgx_sum =  /<\/p>[A-Z](.)+\./
 
           # Pull out a pure description
           summary = item.description.to_s.match(rgx_sum).to_s.slice!(/[A-Z](.)+\./)
-          
+
 
           # Make a template dictionary to put @articles
           temp = {

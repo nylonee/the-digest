@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
     sydney_impt.scrape
 
     new_york_impt_fashion = TheNewYorkTimesImporter.new("fashion")
-    new_york_impt_fashion.scrape    
+    new_york_impt_fashion.scrape
 
     new_york_impt_science = TheNewYorkTimesImporter.new("science")
     new_york_impt_science.scrape
@@ -44,11 +44,14 @@ class ArticlesController < ApplicationController
     new_york_impt_singer = TheNewYorkTimesImporter.new("singer")
     new_york_impt_singer.scrape
 
+    age_impt = TheAgeImmporter.new
+    age_imp.scrape
+
     # Redirect to articles_path
     redirect_to articles_path
   end
 
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
