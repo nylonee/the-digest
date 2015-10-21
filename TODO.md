@@ -6,7 +6,7 @@
 
 ## Nihal
 * ~~Add The Age importer~~
-* Change DateTime from string to DateTime
+* ~~Change DateTime from string to DateTime~~
 * ~~Fix Date import bug?~~
 * ~~Double check regex~~
 * Add administrator URL pages
