@@ -7,7 +7,7 @@ require 'rubygems'
 require 'engtagger'
 
 
-class TheGuardianImporter < Importer
+class TheGuardianScraper < Scraper
 
   # Initialize using the parent's constructor and add @sectionIds 
   # to save a value used for tag_list
@@ -27,7 +27,7 @@ class TheGuardianImporter < Importer
     # Retriving data using the rss url
 		def retrieve_data
 			# Define the URL
-      url = 'http://content.guardianapis.com/search?q=food&api-key=uggudpb34qwz47bxb3rn7e4q&page=1&page-size=100'
+      url = 'http://content.guardianapis.com/search?q=food&api-key=uggudpb34qwz47bxb3rn7e4q&page=1&page-size=50'
       start_date = (Date.today - 7).strftime('%Y-%m-%d')
       end_date = (Date.today).strftime('%Y-%m-%d')
       url += '&from-date=' + start_date + '&to-date=' + end_date

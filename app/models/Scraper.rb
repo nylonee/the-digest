@@ -3,7 +3,7 @@ require 'rubygems'
 require 'engtagger'
 
 # The parent class for all the importers
-class Importer
+class Scraper
 
 
   # Initialized by given a source_name

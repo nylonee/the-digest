@@ -6,7 +6,7 @@ require 'rubygems'
 require 'engtagger'
 
 
-class TheSbsImporter < Importer
+class TheSbsScraper < Scraper
 
   # Initialize by the constructor of its parent class
   def initialize

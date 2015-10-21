@@ -7,7 +7,7 @@ require 'rubygems'
 require 'engtagger'
 
 
-class TheNewYorkTimesImporter < Importer
+class TheNewYorkTimesScraper < Scraper
 
   # Initialize by getting a keyword to set the usl to parse
   def initialize (keyword)

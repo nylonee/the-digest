@@ -6,7 +6,7 @@ require 'rubygems'
 require 'engtagger'
 
 
-class TheSydneyMorningHeraldImporter < Importer
+class TheSydneyMorningHeraldScraper < Scraper
 
   # Initialize by the constructor of its parent class
   def initialize
