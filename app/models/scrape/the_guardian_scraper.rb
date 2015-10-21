@@ -1,5 +1,5 @@
 # Import all the libraries neccessay
-require 'Date'
+require 'date'
 require 'open-uri'
 require 'json'
 require 'net/http'
@@ -7,7 +7,7 @@ require 'net/http'
 module Scrape
   class TheGuardianScraper < Scraper
 
-    # Initialize using the parent's constructor and add @sectionIds 
+    # Initialize using the parent's constructor and add @sectionIds
     # to save a value used for tag_list
     def initialize
       super('The Guardian')
@@ -22,14 +22,14 @@ module Scrape
         start_date = (Date.today - 7).strftime('%Y-%m-%d')
         end_date = (Date.today).strftime('%Y-%m-%d')
         url += '&from-date=' + start_date + '&to-date=' + end_date
-   
+
         # Define the HTTP object
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
 
-        # Get the response 
+        # Get the response
         response = http.get(uri)
-    
+
         # Parse the response body
         forecast = JSON.parse(response.body)
 
@@ -53,7 +53,7 @@ module Scrape
             :categories => each_article['sectionId']
           }
 
-      
+
           # put this article into the array of articles
           @articles << temp
         end

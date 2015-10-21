@@ -1,5 +1,5 @@
 # Import all the libraries neccessay
-require 'Date'
+require 'date'
 require 'rss'
 require 'open-uri'
 require 'rubygems'

@@ -1,5 +1,5 @@
 # Import all the libraries neccessay
-require 'Date'
+require 'date'
 require 'rss'
 require 'open-uri'
 
@@ -18,12 +18,12 @@ module Scrape
       def retrieve_data
 		    # Define the url
         url = 'http://www.sbs.com.au/news/rss/news/science-technology.xml'
-    
+
         # Open the url and parse the rss feed
         open(url) do |rss|
           # Start parsing
           feed = RSS::Parser.parse(rss, false)
-      
+
           # Iterate each item and scrape information
           feed.items.each do |item|
 
@@ -43,7 +43,7 @@ module Scrape
               :link => item.link,
               :categories => nil
             }
-        
+
             # Put the object into articles array
             @articles << temp
           end

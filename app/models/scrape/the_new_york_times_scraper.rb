@@ -1,5 +1,5 @@
 # Import all the libraries neccessay
-require 'Date'
+require 'date'
 require 'open-uri'
 require 'json'
 require 'net/http'
@@ -22,14 +22,14 @@ module Scrape
         url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q='
         url += 'science'
         url += '&sort=newest&page=1&api-key=4368bba38fc93f9f546ca5a320bafad0%3A13%3A72738011'
-   
+
         # Define the HTTP object
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
 
-        # Get the response 
+        # Get the response
         response = http.get(uri)
-    
+
         # Parse the response body
         forecast = JSON.parse(response.body)
 
@@ -51,8 +51,8 @@ module Scrape
               author += person['firstname'] + ' '
               author += person['lastname']
               break
-            end          
-          rescue 
+            end
+          rescue
             author = nil
           end
 
@@ -68,7 +68,7 @@ module Scrape
             image = media['url']
             break
           end
-             
+
 
           # Get all the keywords to use as tags
           keywords = []
@@ -93,6 +93,6 @@ module Scrape
           @articles << temp
         end
       end
-  
+
   end
 end
