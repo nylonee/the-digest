@@ -61,7 +61,7 @@ module Scrape
               :title => item.title,
               :summary => item.description.to_s,
               :image => nil,
-              :date_time => Date.parse(item.pubDate.to_s),
+              :date_time => DateTime.parse(item.pubDate.to_s),
               :link => item.link,
               :categories => categories.join(',')
             }

@@ -77,7 +77,7 @@ module Scrape
           :title => each_article['headline']['main'],
           :summary => each_article['snippet'],
           :image => image,
-          :date_time => Date.parse(each_article['pub_date'].to_s),
+          :date_time => DateTime.parse(each_article['pub_date'].to_s),
           :link => each_article['web_url'],
           :categories => keywords
         }
