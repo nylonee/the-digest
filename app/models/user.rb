@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
  	validates :first_name, :last_name, format: { with: /[A-Z]([a-z]+)/, message: "%{value} is not a valid name" }
   	validates :email, format: { with: /(.+)@(.+).[a-z]{2,4}/, message: "%{value} is not a valid email" }
   	validates :username, length: { minimum: 5 }
+  	validates :username, uniqueness: true
   	validates :password, :password_confirmation, length: { minimum: 8 }
 
   	# Include this to store password safely
