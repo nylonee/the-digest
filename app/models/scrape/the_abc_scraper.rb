@@ -35,6 +35,12 @@ module Scrape
               break
             end
 
+            # If thie article is already stored then ignore
+            if Article.find_by(title: item.title.to_s)
+              next
+            end
+
+
             # Get the author
             regex_author=/<dc:creator>(.*)<\/dc:creator>/
             regex_author.match(item.to_s)

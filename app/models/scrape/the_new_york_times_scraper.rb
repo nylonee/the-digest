@@ -52,6 +52,11 @@ module Scrape
           break
         end
 
+        # If thie article is already stored then ignore
+        if Article.find_by(title: each_article['headline']['main'])
+          next
+        end
+
         # Author field is sometimes an empty array, prevent a TypeError
         # Standardize the author input
         author = each_article['byline'].is_a?(Array) ?

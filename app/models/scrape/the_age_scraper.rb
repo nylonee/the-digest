@@ -35,6 +35,11 @@ module Scrape
             break
           end
 
+          # If thie article is already stored then ignore
+          if Article.find_by(title: item.title)
+            next
+          end
+
 
           # Make a template dictionary to put @articles
           temp = {

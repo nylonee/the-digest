@@ -42,6 +42,12 @@ module Scrape
             break
           end
 
+          # If thie article is already stored then ignore
+          if Article.find_by(title: each_article['webTitle'])
+            next
+          end
+
+
           # Make a template dictionary to put in @articles
           temp = {
             :author => nil,
