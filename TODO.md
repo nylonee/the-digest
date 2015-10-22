@@ -9,8 +9,9 @@
 * ~~Change DateTime from string to DateTime~~
 * ~~Fix Date import bug?~~
 * ~~Double check regex~~
-* Add administrator URL pages
-* Find a gem for tagging, searching, emails, etc.
+* ~~Add administrator URL pages~~
+* ~~Find a gem for tagging, searching, emails, etc.~~
+* Paginate articles (10 per page)
 
 ## Lina
 * Change the registration page, remove 'interests'
@@ -28,7 +29,5 @@
 
 * Add searching functionality
 	* Add keywords weightings for search relevance
-
-* Paginate articles (10 per page)
 
 * Run code through rubocop (AFTER EVERYTHING ELSE IS IMPLEMENTED)
