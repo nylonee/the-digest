@@ -55,6 +55,7 @@ module Scrape
         # If thie article is already stored then ignore
         if Article.find_by(title: each_article['headline']['main'])
           next
+        end
 
         # Try to get the author of this article
         # If any error occurs doing it, set author as nil
