@@ -1,7 +1,7 @@
 ## Tessa
-* Turn importers into scrapers
-* Put scrapers into scraper module
-* Add categories attribute into Articles
+* ~~Turn importers into scrapers~~
+* ~~Put scrapers into scraper module~~
+* ~~Add categories attribute into Articles~~
 * Find a gem for tagging, searching, emails, etc.
 
 ## Nihal
