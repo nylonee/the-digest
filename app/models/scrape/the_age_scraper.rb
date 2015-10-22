@@ -27,12 +27,17 @@ module Scrape
         # Start parsing
         feed = RSS::Parser.parse(rss, false)
         # Iterate each item and scrape information
-        feed.items.each do |item|
+        feed.items.reverse.each do |item|
 
           # If the title of thie article matches the title of the last saved article,
           # stop scraping to avoid from saving duplicates in database
           if !@last_title.nil? and @last_title.eql? item.title
             break
+          end
+
+          # If thie article is already stored then ignore
+          if Article.find_by(title: item.title)
+            next
           end
 
 
@@ -43,7 +48,7 @@ module Scrape
             :summary => item.description,
             :image => nil,
             :link => item.link,
-            :date_time => Date.parse(item.pubDate.to_s),
+            :date_time => DateTime.parse(item.pubDate.to_s),
             :categories => nil
           }
 

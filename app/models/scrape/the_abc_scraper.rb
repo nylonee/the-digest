@@ -35,6 +35,12 @@ module Scrape
               break
             end
 
+            # If thie article is already stored then ignore
+            if Article.find_by(title: item.title.to_s)
+              next
+            end
+
+
             # Get the author
             regex_author=/<dc:creator>(.*)<\/dc:creator>/
             regex_author.match(item.to_s)
@@ -61,7 +67,7 @@ module Scrape
               :title => item.title,
               :summary => item.description.to_s,
               :image => nil,
-              :date_time => Date.parse(item.pubDate.to_s),
+              :date_time => DateTime.parse(item.pubDate.to_s),
               :link => item.link,
               :categories => categories.join(',')
             }

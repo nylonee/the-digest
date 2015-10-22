@@ -32,6 +32,11 @@ module Scrape
               break
             end
 
+            # If thie article is already stored then ignore
+            if Article.find_by(title: item.title.to_s)
+              next
+            end
+
             # Define regex to pull out img url from description
             rgx_img1 = /http:(.)+.jpg-90x60.jpg/
             rgx_img2 = /http:(.)+.png-90x60.png/
@@ -57,7 +62,7 @@ module Scrape
               :summary => summary,
               :image => img,
               :link => item.link,
-              :date_time => Date.parse(item.pubDate.to_s),
+              :date_time => DateTime.parse(item.pubDate.to_s),
               :categories => nil
             }
 

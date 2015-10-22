@@ -1,12 +1,12 @@
-## Tessa
-* Turn importers into scrapers
-* Put scrapers into scraper module
-* Add categories attribute into Articles
+## Tessa(Hyeru)
+* ~~Turn importers into scrapers~~
+* ~~Put scrapers into scraper module~~
+* ~~Add categories attribute into Articles~~
 * Find a gem for tagging, searching, emails, etc.
 
 ## Nihal
 * ~~Add The Age importer~~
-* Change DateTime from string to DateTime
+* ~~Change DateTime from string to DateTime~~
 * ~~Fix Date import bug?~~
 * ~~Double check regex~~
 * Add administrator URL pages

@@ -52,10 +52,34 @@ module Scrape
           break
         end
 
+        # If thie article is already stored then ignore
+        if Article.find_by(title: each_article['headline']['main'])
+          next
+
+        # Try to get the author of this article
+        # If any error occurs doing it, set author as nil
+        begin
+          author = ''
+          each_article['byline']['person'].each do |person|
+            author += person['firstname'] + ' '
+            author += person['lastname']
+            break
+          end
+        rescue
+          author = nil
+        end
+
+        # If the length of the author is zero, set it as nil
+        if !author.nil? and author.length == 0
+          author = nil
+        end
+
         # Author field is sometimes an empty array, prevent a TypeError
         # Standardize the author input
-        author = each_article['byline'].is_a?(Array) ?
-          nil : each_article['byline']['original'].sub('By ', '').split.map(&:capitalize).join(' ')
+        # COMMENTED OUT BECAUSE THIS USES `each_article['byline']` WHICH IS NOT AN ACCURATE
+        # REPRESENTATION OF AUTHOR (eg. 'The Associated Press')
+        # author = each_article['byline'].is_a?(Array) ?
+        #  nil : each_article['byline']['original'].sub('By ', '').split.map(&:capitalize).join(' ')
 
 
         # Get the largest image
@@ -77,7 +101,7 @@ module Scrape
           :title => each_article['headline']['main'],
           :summary => each_article['snippet'],
           :image => image,
-          :date_time => Date.parse(each_article['pub_date'].to_s),
+          :date_time => DateTime.parse(each_article['pub_date'].to_s),
           :link => each_article['web_url'],
           :categories => keywords
         }

@@ -33,13 +33,18 @@ module Scrape
               break
             end
 
+            # If thie article is already stored then ignore
+            if Article.find_by(title: item.title.to_s)
+              next
+            end
+
             # Make a template dictionary to put @articles
             temp = {
               :author => nil,
               :title => item.title,
               :summary => item.description,
               :image => nil,
-              :date_time => Date.parse(item.pubDate.to_s),
+              :date_time => DateTime.parse(item.pubDate.to_s),
               :link => item.link,
               :categories => nil
             }
