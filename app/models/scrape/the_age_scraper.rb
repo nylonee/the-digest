@@ -27,7 +27,7 @@ module Scrape
         # Start parsing
         feed = RSS::Parser.parse(rss, false)
         # Iterate each item and scrape information
-        feed.items.each do |item|
+        feed.items.reverse.each do |item|
 
           # If the title of thie article matches the title of the last saved article,
           # stop scraping to avoid from saving duplicates in database
