@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user, only: [:edit, :destroy, :update]
   before_action :check_valid, only: [:edit, :destroy, :update]
   
-
   # GET /users/new
   def new
     # If a user logged in, redirect to articles page
@@ -77,6 +76,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :bio, :username, :password, :password_confirmation, :interest_list)
+      params.require(:user).permit(:first_name, :last_name, :email, :bio, :password, :password_confirmation, :interest_list)
     end
 end
