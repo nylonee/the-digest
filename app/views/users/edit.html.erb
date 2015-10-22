@@ -1,5 +1,5 @@
+<h1> Editing User Information </h1>
 <div class="panel panel-default">
-  <div class="panel-heading"> Editing User Information </div>
   <div class="panel-body">
 
     <%= form_for(@user) do |f| %>
@@ -55,13 +55,10 @@
 
       <div class="form-group">
        <%= check_box_tag "Scrape", "yes" %>
- 	   <%= label_tag "Scrape" %>
- 	  </div>
-
- 	  <div class="form-group">
+ 	     <%= label_tag "Scrape" %>
        <%= check_box_tag "Unscrape", "yes" %>
- 	   <%= label_tag "Unscrape" %>
- 	  </div>
+       <%= label_tag "Unscrape" %>
+ 	    </div>
 
       <div class="form-group">
         <%= f.submit 'Save', class: 'btn btn-default' %>
