@@ -21,10 +21,6 @@ Rails.application.routes.draw do
   # Path for calling refresh function to refresh articles
   get '/refresh', to: 'articles#refresh', as: :refresh
 
-  # Path for admins to force a scrape (Pulls new articles and tags them)
-  get '/admin/scrape', to: 'articles#refresh', as: :adminscrape
 
-  # Path for admins to send email digest
-  #get '/admin/email', to: 'emails#send', as: :adminemail
 
 end
