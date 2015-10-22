@@ -49,6 +49,8 @@ class Importer
 		ActiveRecord::Base.transaction do
 			@new_articles.each do |a|
 				Tag::TagBySource.tag_by_source(a)
+				Tag::TagByAuthor.tag_by_author(a)
+				Tag::TagByCategory.tag_by_category(a)
 				a.tag_list = a.tag_list.uniq
 				a.save
 			end
