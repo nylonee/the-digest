@@ -24,16 +24,16 @@ class Importer
 			@new_articles << abc.scrape
 
 			sbs = Scrape::TheSbsScraper.new
-	    @new_articles << sbs.scrape
+	    	@new_articles << sbs.scrape
 
-	    guardian = Scrape::TheGuardianScraper.new
-	    @new_articles << guardian.scrape
+	    	guardian = Scrape::TheGuardianScraper.new
+	    	@new_articles << guardian.scrape
 
-	    sydney = Scrape::TheSydneyMorningHeraldScraper.new
-	    @new_articles << sydney.scrape
+	    	sydney = Scrape::TheSydneyMorningHeraldScraper.new
+	    	@new_articles << sydney.scrape
 
-	    new_york = Scrape::TheNewYorkTimesScraper.new
-	    @new_articles << new_york.scrape
+	    	new_york = Scrape::TheNewYorkTimesScraper.new
+	    	@new_articles << new_york.scrape
 
 			age = Scrape::TheAgeScraper.new
 			@new_articles << age.scrape
@@ -51,6 +51,8 @@ class Importer
 				Tag::TagBySource.tag_by_source(a)
 				Tag::TagByAuthor.tag_by_author(a)
 				Tag::TagByCategory.tag_by_category(a)
+				Tag::TagBySummary.tag_by_summary(a)
+				Tag::TagByTitle.tag_by_title(a)
 				a.tag_list = a.tag_list.uniq
 				a.save
 			end
