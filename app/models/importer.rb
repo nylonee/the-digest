@@ -24,22 +24,22 @@ class Importer
 			@new_articles << abc.scrape
 
 			sbs = Scrape::TheSbsScraper.new
-	    @new_articles << sbs.scrape
+	    	@new_articles << sbs.scrape
 
-	    guardian = Scrape::TheGuardianScraper.new
-	    @new_articles << guardian.scrape
+	    	guardian = Scrape::TheGuardianScraper.new
+	    	@new_articles << guardian.scrape
 
-	    sydney = Scrape::TheSydneyMorningHeraldScraper.new
-	    @new_articles << sydney.scrape
+	    	sydney = Scrape::TheSydneyMorningHeraldScraper.new
+	    	@new_articles << sydney.scrape
 
-	    new_york = Scrape::TheNewYorkTimesScraper.new
-	    @new_articles << new_york.scrape
+	    	new_york = Scrape::TheNewYorkTimesScraper.new
+	    	@new_articles << new_york.scrape
 
 			age = Scrape::TheAgeScraper.new
 			@new_articles << age.scrape
 		end
 
-    @new_articles = @new_articles.flatten
+    	@new_articles = @new_articles.flatten
 
 	end
 
