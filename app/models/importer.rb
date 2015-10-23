@@ -39,7 +39,7 @@ class Importer
 			@new_articles << age.scrape
 		end
 
-    @new_articles = @new_articles.flatten
+    	@new_articles = @new_articles.flatten
 
 	end
 
