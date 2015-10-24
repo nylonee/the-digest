@@ -10,6 +10,7 @@ gem 'indico'
 
 gem 'mandrill'
 
+gem 'mandrill-api'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'

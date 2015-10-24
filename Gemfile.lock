@@ -89,6 +89,9 @@ GEM
     mandrill (0.0.4)
       httpi
       json
+    mandrill-api (1.0.53)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.8.0)
@@ -186,6 +189,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mandrill
+  mandrill-api
   open_calais
   rails (= 4.2.3)
   sass-rails (~> 5.0)

@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   	# Include this to store password safely
 	has_secure_password
 
+	# many to many relationship with articles (to deal with compiling and emailing)
+  	has_and_belongs_to_many :articles
+
 	# User can have tag list named interset list
 	acts_as_taggable_on :interests
 
