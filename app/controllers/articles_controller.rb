@@ -9,8 +9,11 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   # pagination for articles
   def index
-    @articles = Article.all.reverse
+
+    @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
+    @articles = Article.all.order(date_time: :desc)
     @articles = Article.paginate(:page => params[:page], :per_page => 5)
+    render 'index'
   end
 
   # GET /articles/1
@@ -20,9 +23,16 @@ class ArticlesController < ApplicationController
 
   # Show all the articles which match a user's interest
   def my_interests
-    @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a.reverse
+    @articles = Article.tagged_with(current_user.interest_list, :any => true)
+    @articles = @articles.order(date_time: :desc)
     @articles = Article.paginate(:page => params[:page], :per_page => 5)
     render 'index'
+
+  end
+
+  # Show all the articles which match the keyword
+  def my_search
+
   end
 
 

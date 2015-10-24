@@ -12,7 +12,9 @@ module Tag
 
     def initialize
 
-      api_key = '7c716e88e4261f02196b83ce0abd59637e2cf8fc'
+      #api_key = 'IimOdVwVdVA5hYuyPPvt2GS0xNqir92u' tessa
+      api_key = 'nmECknxxPjH8GNjLE9Ar29VL9nDN1Rdj' # Nihal
+
       # create an client object with the api key
       @oc = OpenCalais::Client.new(api_key: api_key)
     end

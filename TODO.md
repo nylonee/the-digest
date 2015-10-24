@@ -10,8 +10,10 @@
 * ~~Fix Date import bug?~~
 * ~~Double check regex~~
 * ~~Add administrator URL pages~~
+* ~~Change async coroutines back to standard (db can't handle it)~~
+* Move db commits to end of transaction loops
+* Paginate articles (5 per page)
 * ~~Find a gem for tagging, searching, emails, etc.~~
-* Paginate articles (10 per page)
 
 ## Lina
 * Change the registration page, remove 'interests'

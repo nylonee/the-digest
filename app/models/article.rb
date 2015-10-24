@@ -2,8 +2,8 @@
 class Article < ActiveRecord::Base
 
 	# title and date_time should be included
-	validates_presence_of :title, :date_time
-
+	validates_presence_of :title, :date_time 
+	
 	# An article should belong to some source
 	belongs_to :source
 
