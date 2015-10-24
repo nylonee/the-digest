@@ -74,12 +74,4 @@ ActiveRecord::Schema.define(version: 20151024171842) do
     t.boolean  "subscribe"
   end
 
-  create_table "users_articles", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "article_id"
-  end
-
-  add_index "users_articles", ["article_id"], name: "index_users_articles_on_article_id"
-  add_index "users_articles", ["user_id"], name: "index_users_articles_on_user_id"
-
 end

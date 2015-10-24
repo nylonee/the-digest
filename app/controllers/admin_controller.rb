@@ -17,10 +17,11 @@ class AdminController < ApplicationController
   	# Get all users to ask to send a digest 
   	users = User.find_by(subscribe: true)
     users = a << users
+    users = users.flatten
 
     # Get mandril object
     mandrill = Mandrill::API.new 'SyKEz-QytC97dIODlvKQoQ'
-    content = 'Here is the list of interesting articles for you\n\n'
+    content = "Here is the list of interesting articles for you\n\n"
 
   	# Send a digest to each user who asks to  
   	users.each do |user|
@@ -47,7 +48,7 @@ class AdminController < ApplicationController
 
       # If there is no interesting article
       if num == 0
-        content = 'There is no any new interesting articles for you this time.\n'
+        content = "There is no any new interesting articles for you this time.\n"
       end
 
       # create a message to send
@@ -61,7 +62,7 @@ class AdminController < ApplicationController
                 :name => user.first_name + ' ' + user.last_name 
                 }  
             ],   
-            :from_email => "thedigest@thedigest.com"  
+            :from_email => 'thedigest@thedigest.com'
           }  
 
       # send the message
@@ -76,8 +77,8 @@ class AdminController < ApplicationController
 
   # make a proper paragraph with title and link
   def make_paragraph (title, link)
-    paragraph = 'Titile: #{title}\n'
-    paragraph += 'Link: #{link}\n\n' 
+    paragraph = "Title: #{title}\n"
+    paragraph += "Link: #{link}\n\n" 
   end
 
 
