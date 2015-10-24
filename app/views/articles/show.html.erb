@@ -10,7 +10,7 @@
     <% if @article.author %>
       <p>Written by <%= @article.author %> </p>
     <% end %>
-    
+
     <p> Publisehd on <%= @article.date_time %></p>
 
     <% if @article.summary %>
@@ -20,16 +20,13 @@
     <% if @article.image %>
       <p>Image Link : <%= @article.image %></p>
     <% end %>
-  	
+
     <p>Source Link : <%=@article.link%></p>
 
   </div>
 
 </div>
 
-
 <div class="btn-group pull-right" role="group">
     <%= link_to 'Back', :back , class: "btn btn-default" %>
 </div>
-
-

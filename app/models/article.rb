@@ -1,5 +1,6 @@
 # Article model for storing and persisting article information
 class Article < ActiveRecord::Base
+
 	# title and date_time should be included
 	validates_presence_of :title, :date_time
 

@@ -7,8 +7,10 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   # GET /articles.json
+  # pagination for articles
   def index
     @articles = Article.all.reverse
+    @articles = Article.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /articles/1
@@ -16,10 +18,10 @@ class ArticlesController < ApplicationController
   def show
   end
 
-  # Show all the articels which match a user's interest
+  # Show all the articles which match a user's interest
   def my_interests
-    @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
-    @articles = @articles.reverse
+    @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a.reverse
+    @articles = Article.paginate(:page => params[:page], :per_page => 5)
     render 'index'
   end
 

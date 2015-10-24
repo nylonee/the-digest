@@ -37,6 +37,10 @@ gem 'bcrypt', '~> 3.1.7'
 # Use acts as taggable on
 gem 'acts-as-taggable-on'
 
+# Use will_paginate (For page pagination)
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+
 # Use engtagger to find out nouns in a sentence
 gem 'engtagger'
 
@@ -51,4 +55,3 @@ group :development, :test do
   gem 'spring'
 
 end
-
