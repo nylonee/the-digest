@@ -27,7 +27,7 @@ module Tag
 
 				# put every topic keywords into the tag_list
 				oc_response.topics.each do |topic|
-					article.tag_list << topic[:name]
+					article.tag_list << topic[:name].split('&')
 				end
 
   		end
