@@ -7,6 +7,13 @@ class Importer
 
 	def initialize
 		@new_articles = []
+
+		# Initialize the tagging classes
+		@tsource = Tag::TagBySource.new
+		@tauthor = Tag::TagByAuthor.new
+		@tcategory = Tag::TagByCategory.new
+		@tsummary = Tag::TagBySummary.new
+		@ttitle = Tag::TagByTitle.new
 	end
 
 	# import all new articles
@@ -46,16 +53,49 @@ class Importer
 
 	# tag all new articles
 	def tag_all
+		threads = []
 		ActiveRecord::Base.transaction do
 			@new_articles.each do |a|
-				Tag::TagBySource.tag_by_source(a)
-				Tag::TagByAuthor.tag_by_author(a)
-				Tag::TagByCategory.tag_by_category(a)
-				Tag::TagBySummary.tag_by_summary(a)
-				Tag::TagByTitle.tag_by_title(a)
+				begin
+					@tsource.tag_by_source(a)
+				rescue
+					puts "Tagging article by source failed"
+				end
+
+				begin
+					@tauthor.tag_by_author(a)
+				rescue
+					puts "Tagging article by author failed"
+				end
+
+				begin
+					@tcategory.tag_by_category(a)
+				rescue
+					puts "Tagging article by category failed"
+				end
+
+				# These take forever, so it's put on a concurrent thread.
+				# NOTE: We are using sqlite which does not natively support concurrent
+				# transactions, therefore we increased transaction timeout and pool, and
+				# minimized the number of concurrent transactions we're processing as
+				# much as possible.
+				threads << Thread.new {
+					begin
+						@tsummary.tag_by_summary(a)
+					rescue
+						puts "Tagging article by summary failed"
+					end
+
+					begin
+						@ttitle.tag_by_title(a)
+					rescue
+						puts "Tagging article by title failed"
+					end
+				}
 				a.tag_list = a.tag_list.uniq
 				a.save
 			end
+
 		end
 	end
 
