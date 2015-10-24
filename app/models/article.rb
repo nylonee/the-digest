@@ -9,5 +9,4 @@ class Article < ActiveRecord::Base
 
 	# Tags can be attached
 	acts_as_taggable
-
 end

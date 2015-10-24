@@ -4,15 +4,23 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show]
   before_action :authenticate_user
 
+  TAGS_WEIGHT  = 4
+  TITLES_WEIGHT = 3
+  SUMMARYS_WEIGHT = 2
+  SOURCES_WEIGHT = 1
 
   # GET /articles
   # GET /articles.json
   # pagination for articles
   def index
-
-    @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
-    @articles = Article.paginate(:page => params[:page], :per_page => 5).order('date_time DESC')
-    render 'index'
+    if params[:search]
+      my_search
+    else
+      @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
+      @articles = Article.paginate(:page => params[:page], :per_page => 5).order(date_time: :desc)
+      @page_title = 'All Articles'
+      render 'index'
+    end
   end
 
   # GET /articles/1
@@ -23,14 +31,59 @@ class ArticlesController < ApplicationController
   # Show all the articles which match a user's interest
   def my_interests
     @articles = Article.tagged_with(current_user.interest_list, :any => true)
-    @articles = Article.paginate(:page => params[:page], :per_page => 5).order('date_time DESC')
+    @articles = @articles.order(date_time: :desc)
+    @page_title = 'My Interests'
     render 'index'
 
   end
 
   # Show all the articles which match the keyword
   def my_search
+    keywords = params[:search].downcase
 
+    tags = Article.tagged_with(keywords, :any => true).uniq
+    titles = Article.all.select{ |a| a.title.downcase.in?(keywords)}.uniq
+    begin
+      summarys = Article.all.select{ |a| a.summary.downcase.in?(keywords)}.uniq
+    rescue NoMethodError
+      summarys = []
+    end
+    sources = Article.all.select{|a| a.source.name.downcase.in?(keywords)}.uniq
+
+    weight_dictionary = {}
+
+    tags.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + TAGS_WEIGHT
+      else
+        weight_dictionary[article] = TAGS_WEIGHT
+      end
+    end
+    titles.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + TITLES_WEIGHT
+      else
+        weight_dictionary[article] = TITLES_WEIGHT
+      end
+    end
+    summarys.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + SUMMARYS_WEIGHT
+      else
+        weight_dictionary[article] = SUMMARYS_WEIGHT
+      end
+    end
+    sources.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + SOURCES_WEIGHT
+      else
+        weight_dictionary[article] = SOURCES_WEIGHT
+      end
+    end
+
+    @articles = weight_dictionary.sort_by(&:last).reverse.to_h.keys
+    @page_title = 'Results for search: "'+params[:search]+'"'
+    render 'index'
   end
 
 
