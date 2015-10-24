@@ -11,7 +11,7 @@
 * ~~Double check regex~~
 * ~~Add administrator URL pages~~
 * ~~Change async coroutines back to standard (db can't handle it)~~
-* Move db commits to end of transaction loops
+* ~~Move db commits to end of transaction loops~~
 * Paginate articles (5 per page)
 * ~~Find a gem for tagging, searching, emails, etc.~~
 

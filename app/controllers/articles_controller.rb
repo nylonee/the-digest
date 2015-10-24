@@ -11,8 +11,7 @@ class ArticlesController < ApplicationController
   def index
 
     @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
-    @articles = Article.all.order(date_time: :desc)
-    @articles = Article.paginate(:page => params[:page], :per_page => 5)
+    @articles = Article.paginate(:page => params[:page], :per_page => 5).order('date_time DESC')
     render 'index'
   end
 
@@ -24,8 +23,7 @@ class ArticlesController < ApplicationController
   # Show all the articles which match a user's interest
   def my_interests
     @articles = Article.tagged_with(current_user.interest_list, :any => true)
-    @articles = @articles.order(date_time: :desc)
-    @articles = Article.paginate(:page => params[:page], :per_page => 5)
+    @articles = Article.paginate(:page => params[:page], :per_page => 5).order('date_time DESC')
     render 'index'
 
   end
