@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'open_calais'
+
+gem 'sentimental'
+
+gem 'alchemy-api-rb', :require => 'alchemy_api'
+
+gem 'indico'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
