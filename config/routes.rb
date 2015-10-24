@@ -31,5 +31,8 @@ Rails.application.routes.draw do
   # Path for admins to send digests to subscribers
   get '/admin/email', to: 'admins#email', as: :adminemail
 
+  # Path for searching
+  get '/search/', to: 'articles#search', as: :search
+
 
 end
