@@ -54,8 +54,8 @@
       </div>
 
       <div class="form-group">
-        <%= check_box_tag "Subscrible Articles", "yes" %>
-        <%= label_tag "Subscrible Articles" %>
+        <%= f.label :subscribe, 'Subscrible Articles'%>
+        <%= f.check_box :subscribe, class: 'form-control' %>
       </div>
 
       <div class="form-group">
