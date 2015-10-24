@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show]
   before_action :authenticate_user
 
+  TAG_WEIGHT  = 4
 
   # GET /articles
   # GET /articles.json
@@ -29,7 +30,29 @@ class ArticlesController < ApplicationController
 
   # Show all the articles which match the keyword
   def my_search
-   
+    if params[ :search]
+      
+      tags = Article.tagged_with(keywords, :any => true)
+      titles = Article.all.select{ |a| a.title.in?(keywords)}
+      summarys = Article.all.select{}
+      sourceS = Article.all.select{a.source.name}
+
+      tags= tags.uniq
+      titles = titles.uniq
+
+
+      weight_dictionary = {}
+
+      tags.each do |tag|
+        weight_dictionary[tag] = TAG_WEIGHT
+      end
+
+
+
+      #articles = Article.search(params[:search].order("created_at DESC"))
+    else
+      articles = Article.order("created_at DESC")
+    end
   end
 
 
