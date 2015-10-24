@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'admin/email'
+
+  get 'admin/scrape'
+
   # Root is the unauthenticated path
   root 'sessions#unauth'
 
@@ -22,9 +26,10 @@ Rails.application.routes.draw do
   get '/refresh', to: 'articles#refresh', as: :refresh
 
   # Path for admins to force a scrape (Pulls new articles and tags them)
-  get '/admin/scrape', to: 'articles#refresh', as: :adminscrape
+  get '/admin/scrape', to: 'admins#scrape', as: :adminscrape
 
-  # Path for admins to send email digest
-  #get '/admin/email', to: 'emails#send', as: :adminemail
+  # Path for admins to send digests to subscribers
+  get '/admin/email', to: 'admin#email', as: :adminemail
+
 
 end

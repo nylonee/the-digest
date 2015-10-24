@@ -13,7 +13,6 @@ module Scrape
       super('The Guardian')
     end
 
-
     private
       # Retriving data using the rss url
 		  def retrieve_data
