@@ -1,4 +1,8 @@
 #include mindrill module
+require 'rubygems'
+require 'bundler/setup'
+require 'mandrill'
+
 
 class AdminController < ApplicationController
 	# send digest email to subscribers
