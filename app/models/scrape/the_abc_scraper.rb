@@ -19,7 +19,7 @@ module Scrape
       # Retriving data using the url
       def retrieve_data
         # Define the url
-        url = 'http://www.sbs.com.au/news/rss/news/science-technology.xml'
+        url = 'http://www.abc.net.au/radionational/feed/3771046/rss.xml'
 
         # Open the url and parse the rss feed
         open(url) do |rss|
