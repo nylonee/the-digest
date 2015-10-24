@@ -67,8 +67,6 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (3.4.2)
-    httpi (2.4.1)
-      rack
     i18n (0.7.0)
     indico (0.5.3)
       inifile (~> 3.0.0)
@@ -86,9 +84,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mandrill (0.0.4)
-      httpi
-      json
     mandrill-api (1.0.53)
       excon (>= 0.16.0, < 1.0)
       json (>= 1.7.7, < 2.0)
@@ -188,7 +183,6 @@ DEPENDENCIES
   indico
   jbuilder (~> 2.0)
   jquery-rails
-  mandrill
   mandrill-api
   open_calais
   rails (= 4.2.3)

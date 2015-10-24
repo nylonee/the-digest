@@ -13,11 +13,9 @@ class AdminController < ApplicationController
 	# send digest email to subscribers
 	# the digest includes title and link to each article
   def email
-    a = []
+
   	# Get all users to ask to send a digest 
-  	users = User.find_by(subscribe: true)
-    users = a << users
-    users = users.flatten
+    users = User.where(subscribe: true)
 
     # Get mandril object
     mandrill = Mandrill::API.new 'SyKEz-QytC97dIODlvKQoQ'
