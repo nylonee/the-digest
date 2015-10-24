@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get '/admin/scrape', to: 'admins#scrape', as: :adminscrape
 
   # Path for admins to send digests to subscribers
-  get '/admin/email', to: 'admin#email', as: :adminemail
+  get '/admin/email', to: 'admins#email', as: :adminemail
 
 
 end

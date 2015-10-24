@@ -11,6 +11,8 @@ class AdminController < ApplicationController
   # scrape(import) all the articles
   def scrape
   	Importer.new.import_all
+  	
+  	redirect_to login_path
   end
 
 end
