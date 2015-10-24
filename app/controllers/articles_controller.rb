@@ -13,9 +13,14 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
 
-    @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
-    @articles = Article.all.order(date_time: :desc)
-    render 'index'
+    if params[:search]
+      my_search
+    else
+      @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
+      @articles = Article.all.order(date_time: :desc)
+      render 'index'
+    end
+
   end
 
   # GET /articles/1
@@ -23,41 +28,60 @@ class ArticlesController < ApplicationController
   def show
   end
 
-  # Show all the articels which match a user's interest
+  # Show all the articles which match a user's interest
   def my_interests
     @articles = Article.tagged_with(current_user.interest_list, :any => true)
     @articles = @articles.order(date_time: :desc)
     render 'index'
-  
+
   end
 
   # Show all the articles which match the keyword
   def my_search
-    if params[ :search]
+    keywords = params[:search].downcase
 
-      tags = Article.tagged_with(keywords, :any => true)
-      titles = Article.all.select{ |a| a.title.in?(keywords)}
-      summarys = Article.all.select{ |a| a.title.in?(keywords)}
-      sources = Article.all.select{a.source.name}
+    tags = Article.tagged_with(keywords, :any => true).uniq
+    titles = Article.all.select{ |a| a.title.downcase.in?(keywords)}.uniq
+    begin
+      summarys = Article.all.select{ |a| a.summary.downcase.in?(keywords)}.uniq
+    rescue NoMethodError
+      summarys = []
+    end
+    sources = Article.all.select{|a| a.source.name.downcase.in?(keywords)}.uniq
 
-      tags= tags.uniq
-      titles = titles.uniq
-      summarys = summarys.uniq
-      sources = sources.uniq
+    weight_dictionary = {}
 
-      weight_dictionary = {}
-
-      tags.each do |tag|
-        weight_dictionary[tag] = TAGS_WEIGHT
-
+    tags.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + TAGS_WEIGHT
+      else
+        weight_dictionary[article] = TAGS_WEIGHT
       end
-
+    end
+    titles.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + TITLES_WEIGHT
+      else
+        weight_dictionary[article] = TITLES_WEIGHT
+      end
+    end
+    summarys.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + SUMMARYS_WEIGHT
+      else
+        weight_dictionary[article] = SUMMARYS_WEIGHT
+      end
+    end
+    sources.each do |article|
+      if weight_dictionary.has_key?(article)
+        weight_dictionary[article] = weight_dictionary[article] + SOURCES_WEIGHT
+      else
+        weight_dictionary[article] = SOURCES_WEIGHT
+      end
     end
 
-      #articles = Article.search(params[:search].order("created_at DESC"))
-    else
-      articles = Article.order("created_at DESC")
-    end
+    @articles = weight_dictionary.sort_by(&:last).reverse.to_h.keys
+    render 'index'
   end
 
 
