@@ -30,23 +30,23 @@ class Importer
 			abc = Scrape::TheAbcScraper.new
 			@new_articles << abc.scrape
 
-			sbs = Scrape::TheSbsScraper.new
-	    	@new_articles << sbs.scrape
+			#sbs = Scrape::TheSbsScraper.new
+	    #	@new_articles << sbs.scrape
 
-	    	guardian = Scrape::TheGuardianScraper.new
-	    	@new_articles << guardian.scrape
+	    #	guardian = Scrape::TheGuardianScraper.new
+	    #	@new_articles << guardian.scrape
 
-	    	sydney = Scrape::TheSydneyMorningHeraldScraper.new
-	    	@new_articles << sydney.scrape
+	    #	sydney = Scrape::TheSydneyMorningHeraldScraper.new
+	    #	@new_articles << sydney.scrape
 
-	    	new_york = Scrape::TheNewYorkTimesScraper.new
-	    	@new_articles << new_york.scrape
+	    new_york = Scrape::TheNewYorkTimesScraper.new
+	    @new_articles << new_york.scrape
 
-			age = Scrape::TheAgeScraper.new
-			@new_articles << age.scrape
+			#age = Scrape::TheAgeScraper.new
+			#@new_articles << age.scrape
 		end
 
-    	@new_articles = @new_articles.flatten
+    @new_articles = @new_articles.flatten
 
 	end
 
@@ -74,24 +74,18 @@ class Importer
 					puts "Tagging article by category failed"
 				end
 
-				# These take forever, so it's put on a concurrent thread.
-				# NOTE: We are using sqlite which does not natively support concurrent
-				# transactions, therefore we increased transaction timeout and pool, and
-				# minimized the number of concurrent transactions we're processing as
-				# much as possible.
-				threads << Thread.new {
-					begin
+				begin
 						@tsummary.tag_by_summary(a)
-					rescue
+				rescue
 						puts "Tagging article by summary failed"
-					end
+				end
 
-					begin
+				begin
 						@ttitle.tag_by_title(a)
-					rescue
+				rescue
 						puts "Tagging article by title failed"
-					end
-				}
+				end
+				
 				a.tag_list = a.tag_list.uniq
 				a.save
 			end

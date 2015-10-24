@@ -1,3 +1,5 @@
+#include mindrill module
+
 class AdminController < ApplicationController
 	# send digest email to subscribers
 	# the digest includes title and link to each article

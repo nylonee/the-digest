@@ -9,8 +9,11 @@ module Tag
   class TagBySummary
 
     def initialize
-      # get the api key
-      AlchemyAPI.key = '7c716e88e4261f02196b83ce0abd59637e2cf8fc'
+      # get the api key tessa
+      #AlchemyAPI.key = '7c716e88e4261f02196b83ce0abd59637e2cf8fc'
+
+      # Nihal
+			AlchemyAPI.key = 'c034f2a7188c38fd165d49a67cf50650c7003d74'      
 
       @a_entities = AlchemyAPI::EntityExtraction.new()
       @a_concepts = AlchemyAPI::ConceptTagging.new()
