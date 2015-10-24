@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
     else
       @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
       @articles = Article.all.order(date_time: :desc)
+      @page_title = 'All Articles'
       render 'index'
     end
 
@@ -32,6 +33,7 @@ class ArticlesController < ApplicationController
   def my_interests
     @articles = Article.tagged_with(current_user.interest_list, :any => true)
     @articles = @articles.order(date_time: :desc)
+    @page_title = 'My Interests'
     render 'index'
 
   end
@@ -81,6 +83,7 @@ class ArticlesController < ApplicationController
     end
 
     @articles = weight_dictionary.sort_by(&:last).reverse.to_h.keys
+    @page_title = 'Results for search: "'+params[:search]+'"'
     render 'index'
   end
 

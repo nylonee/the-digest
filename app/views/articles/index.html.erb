@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<h1>The Articles Requested</h1>
+<h1><%= @page_title %></h1>
 
 <% @articles.each do |article| %>
   <%= render partial: 'index_article', locals: {article: article} %>
 <% end %>
-
