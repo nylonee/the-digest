@@ -87,7 +87,7 @@ class ArticlesController < ApplicationController
       @page_title = 'No results found for: "' + params[:search] + '"'
       render 'index'
     else
-      @articles = weight_dictionary.sort_by{|article, weight| article.date_time}.sort_by {|article, weight| weight}.reverse.to_h.keys
+      @articles = weight_dictionary.sort_by { |article, _weight| article.date_time }.sort_by { |_article, weight| weight }.reverse.to_h.keys
       @articles = @articles.paginate(page: params[:page], per_page: 10)
       @page_title = 'Results for search: "' + params[:search] + '"'
       render 'index'
