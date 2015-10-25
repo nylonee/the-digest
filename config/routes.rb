@@ -18,9 +18,6 @@ Rails.application.routes.draw do
   # Path for showing interseting articles
   get '/interests', to: 'articles#my_interests', as: :interests
 
-  # Path for calling refresh function to refresh articles
-  get '/refresh', to: 'articles#refresh', as: :refresh
-
   # Path for admins to force a scrape (Pulls new articles and tags them)
   get '/admin/scrape', to: 'admin#scrape', as: :adminscrape
 

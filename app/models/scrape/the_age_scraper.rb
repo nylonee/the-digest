@@ -2,8 +2,7 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require 'rubygems'
-require 'engtagger'
+
 
 module Scrape
 

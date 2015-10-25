@@ -1,16 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<<<<<<< HEAD
-<h1>Requested articles</h1>
-=======
 <h1><%= @page_title %></h1>
->>>>>>> search-branch
 
 <% @articles.each do |article| %>
   <%= render partial: 'index_article', locals: {article: article} %>
 <% end %>
-<<<<<<< HEAD
 
-<% will_paginate @articles %>
-=======
->>>>>>> search-branch
+<%= will_paginate @articles, renderer: BootstrapPagination::Rails %>

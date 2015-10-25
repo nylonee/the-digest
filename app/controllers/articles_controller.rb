@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show]
   before_action :authenticate_user
 
+  # Set weight constant
   TAGS_WEIGHT  = 4
   TITLES_WEIGHT = 3
   SUMMARYS_WEIGHT = 2
@@ -16,8 +17,8 @@ class ArticlesController < ApplicationController
     if params[:search]
       my_search
     else
-      @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
-      @articles = Article.paginate(:page => params[:page], :per_page => 5).order(date_time: :desc)
+      @articles = Article.all.order(date_time: :desc)
+      @articles = Article.paginate(:page => params[:page], :per_page => 10).order(date_time: :desc)
       @page_title = 'All Articles'
       render 'index'
     end
@@ -28,14 +29,17 @@ class ArticlesController < ApplicationController
   def show
   end
 
+
   # Show all the articles which match a user's interest
   def my_interests
+    # Get all interesting articles to current user and sort them by date_time
     @articles = Article.tagged_with(current_user.interest_list, :any => true)
-    @articles = @articles.order(date_time: :desc)
+    @articles = @articles.paginate(:page => params[:page], :per_page => 10).order(date_time: :desc)
+
     @page_title = 'My Interests'
     render 'index'
-
   end
+
 
   # Show all the articles which match the keyword
   def my_search
@@ -81,20 +85,13 @@ class ArticlesController < ApplicationController
       end
     end
 
+
     @articles = weight_dictionary.sort_by(&:last).reverse.to_h.keys
+    @articles = @articles.paginate(:page => params[:page], :per_page => 10)
     @page_title = 'Results for search: "'+params[:search]+'"'
     render 'index'
   end
 
-
-  # Refresh the articles by calling the scrape function from all the importers
-  def refresh
-
-    Importer.new.import_all
-
-    # Redirect to articles_path
-    redirect_to articles_path
-  end
 
 
   private

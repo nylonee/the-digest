@@ -1,4 +1,3 @@
-
 # Import all the libraries neccessay
 require 'date'
 require 'rss'
@@ -8,8 +7,7 @@ module Scrape
 
   class TheAbcScraper < Scraper
 
-    # Initialize using the parent's constructor and add @sectionIds
-    # to save a value used for tag_list
+    # Initialize using the parent's constructor passing a source name
     def initialize
       super('The ABC')
     end

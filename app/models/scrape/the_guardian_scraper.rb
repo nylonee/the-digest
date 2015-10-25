@@ -7,8 +7,7 @@ require 'net/http'
 module Scrape
   class TheGuardianScraper < Scraper
 
-    # Initialize using the parent's constructor and add @sectionIds
-    # to save a value used for tag_list
+    # Initialize using parent's constructor passing a source name
     def initialize
       super('The Guardian')
     end

@@ -7,7 +7,7 @@ require 'net/http'
 module Scrape
   class TheNewYorkTimesScraper < Scraper
 
-    # Initialize by getting a keyword to set the usl to parse
+    # Initialize using parent's constructor passing source name
     def initialize
       super('The New York Times')
     end

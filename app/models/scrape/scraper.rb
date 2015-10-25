@@ -15,7 +15,7 @@ module Scrape
       end
     end
 
-    # Scrape the articles and tag them
+    # Scrape the articles 
     def scrape
       # array to store new article objects
       @new_articles = []
