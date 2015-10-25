@@ -9,9 +9,6 @@ Nihal Mirpuri 		/ 562439 		 / Nihal Mirpuri
 # Deployment Instructions (via terminal)
 ```
 bundle install
-rake db:drop
-rake db:create
-rake db:migrate
-rake db:seed
+rake db:drop db:create db:migrate db:seed
 rails s
 ```
