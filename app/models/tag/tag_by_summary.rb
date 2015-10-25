@@ -14,7 +14,7 @@ module Tag
 
     def tag_by_summary(article)
       # Initialize keywords
-      ind_keywords = Indico.keywords (article.title)
+      ind_keywords = Indico.keywords (article.summary)
 
       # Get the keywords
       ind_keywords.each do |keyword, _value|
