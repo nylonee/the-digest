@@ -35,7 +35,7 @@ class AdminController < ApplicationController
         break if num >= MAX_NUM_ARTICLES
 
         # If this article has not been sent to this user, include this to digest
-        unless user.articles.include? (article)
+        unless user.articles.include?(article)
           user.articles << article
           # Update content string
           content += make_paragraph(article.title, article.link)
@@ -63,14 +63,14 @@ class AdminController < ApplicationController
       }
 
       # send the email
-      sending = mandrill.messages.send message
+      mandrill.messages.send message
     end
   end
 
   # make a proper paragraph with title and link given
   def make_paragraph(title, link)
     paragraph = "Title: #{title}\n"
-    paragraph += "Link: #{link}\n\n"
+    paragraph + "Link: #{link}\n\n"
   end
 
   # scrape(import) all the articles

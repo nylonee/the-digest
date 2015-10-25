@@ -54,48 +54,48 @@ class ArticlesController < ApplicationController
     weight_dictionary = []
 
     tags.each do |article|
-      if weight_dictionary.map {|row| row[0]}.include?(article)
-        weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)] =
+      if weight_dictionary.map { |row| row[0] }.include?(article)
+        weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)] =
           [
             article,
             TAGS_WEIGHT,
-            weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)][2]+1
-            ]
+            weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)][2] + 1
+          ]
       else
         weight_dictionary << [article, TAGS_WEIGHT, 1]
       end
     end
     titles.each do |article|
-      if weight_dictionary.map {|row| row[0]}.include?(article)
-        weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)] =
+      if weight_dictionary.map { |row| row[0] }.include?(article)
+        weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)] =
         [
           article,
           TITLES_WEIGHT,
-          weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)][2]+1
+          weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)][2] + 1
         ]
       else
         weight_dictionary << [article, TITLES_WEIGHT, 1]
       end
     end
     summarys.each do |article|
-      if weight_dictionary.map {|row| row[0]}.include?(article)
-        weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)] =
+      if weight_dictionary.map { |row| row[0] }.include?(article)
+        weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)] =
         [
           article,
           SUMMARYS_WEIGHT,
-          weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)][2]+1
+          weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)][2] + 1
         ]
       else
         weight_dictionary << [article, SUMMARYS_WEIGHT, 1]
       end
     end
     sources.each do |article|
-      if weight_dictionary.map {|row| row[0]}.include?(article)
-        weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)] =
+      if weight_dictionary.map { |row| row[0] }.include?(article)
+        weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)] =
         [
           article,
           SOURCES_WEIGHT,
-          weight_dictionary[weight_dictionary.map {|row| row[0]}.index(article)][2]+1
+          weight_dictionary[weight_dictionary.map { |row| row[0] }.index(article)][2] + 1
         ]
       else
         weight_dictionary << [article, SOURCES_WEIGHT, 1]
@@ -108,9 +108,10 @@ class ArticlesController < ApplicationController
       render 'index'
     else
       weight_dictionary.each do |row|
+        # Only keep searches where ALL keywords have been accounted for
         weight_dictionary.delete(row) if row[2] != keywords.length
       end
-      @articles = weight_dictionary.sort_by { |article, _weight, _keyword| article.date_time }.sort_by { |_article, weight, _keyword| weight }.reverse.map {|row| row[0]}
+      @articles = weight_dictionary.sort_by { |article, _weight, _keyword| article.date_time }.sort_by { |_article, weight, _keyword| weight }.reverse.map { |row| row[0] }
       @articles = @articles.paginate(page: params[:page], per_page: 10)
       @page_title = 'Results for search: "' + params[:search] + '"'
       render 'index'

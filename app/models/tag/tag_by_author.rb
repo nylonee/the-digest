@@ -5,7 +5,7 @@ module Tag
       if !article.author.nil? && article.author.length != 0
         article.tag_list << article.author
         article.save
-        end
+      end
     end
   end
 end
