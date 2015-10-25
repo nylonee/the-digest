@@ -1,9 +1,8 @@
 # The parent class for all the importers
 module Scrape
-
   class Scraper
     # Initialized by given a source_name
-    def initialize (source_name)
+    def initialize(source_name)
       @articles = []
       @source = Source.find_by(name: source_name)
 
@@ -15,7 +14,7 @@ module Scrape
       end
     end
 
-    # Scrape the articles 
+    # Scrape the articles
     def scrape
       # array to store new article objects
       @new_articles = []
@@ -24,7 +23,7 @@ module Scrape
       retrieve_data
 
       # store each article information into database
-      @articles.reverse.each do |a|
+      @articles.reverse_each do |a|
         article = Article.new(a)
         article.source = @source
         article.save
@@ -33,7 +32,5 @@ module Scrape
 
       @new_articles
     end
-
   end
-
 end

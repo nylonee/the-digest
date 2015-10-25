@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # Root is the unauthenticated path
   root 'sessions#unauth'
 
@@ -7,7 +6,6 @@ Rails.application.routes.draw do
   get 'sessions/unauth', as: :login
   post 'sessions/login', as: :signin
   delete 'sessions/logout', as: :logout
-
 
   # Resourceful routes for users
   resources :users, only: [:create, :new, :update, :destroy, :edit]
@@ -26,6 +24,4 @@ Rails.application.routes.draw do
 
   # Path for searching
   get '/search/', to: 'articles#search', as: :search
-
-
 end

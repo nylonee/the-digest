@@ -4,7 +4,7 @@ gem 'open_calais'
 
 gem 'sentimental'
 
-gem 'alchemy-api-rb', :require => 'alchemy_api'
+gem 'alchemy-api-rb', require: 'alchemy_api'
 
 gem 'indico'
 
@@ -54,5 +54,4 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
 end

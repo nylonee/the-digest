@@ -15,8 +15,8 @@ end
 
 # File paths
 $lexpath   = File.join(File.dirname(__FILE__), 'engtagger')
-$word_path = File.join($lexpath, "pos_words.hash")
-$tag_path  = File.join($lexpath, "pos_tags.hash")
+$word_path = File.join($lexpath, 'pos_words.hash')
+$tag_path  = File.join($lexpath, 'pos_tags.hash')
 
 # for memoization (code snipet from http://eigenclass.org/hiki/bounded-space-memoization)
 class Module
@@ -34,25 +34,24 @@ end
 
 # English part-of-speech tagger class
 class EngTagger
-
   #################
   # Class methods #
   #################
 
   # Return a class variable that holds probability data
   def self.hmm
-    return @@hmm
+    @@hmm
   end
 
   # Return a class variable that holds lexical data
   def self.lexicon
-    return @@lexicon
+    @@lexicon
   end
 
   # Return a regexp from a string argument that matches an XML-style pos tag
   def self.get_ext(tag = nil)
     return nil unless tag
-    return Regexp.new("<#{tag}>[^<]+</#{tag}>\s*")
+    Regexp.new("<#{tag}>[^<]+</#{tag}>\s*")
   end
 
   # Regexps to match XML-style part-of-speech tags
@@ -89,53 +88,53 @@ class EngTagger
   # The folloging is to make a hash to convert a pos tag to its definition
   # used by the explain_tag method
   tags = [
-    "CC",   "Conjunction, coordinating",
-    "CD",   "Adjective, cardinal number",
-    "DET",  "Determiner",
-    "EX",   "Pronoun, existential there",
-    "FW",   "Foreign words",
-    "IN",   "Preposition / Conjunction",
-    "JJ",   "Adjective",
-    "JJR",  "Adjective, comparative",
-    "JJS",  "Adjective, superlative",
-    "LS",   "Symbol, list item",
-    "MD",   "Verb, modal",
-    "NN",   "Noun",
-    "NNP",  "Noun, proper",
-    "NNPS", "Noun, proper, plural",
-    "NNS",  "Noun, plural",
-    "PDT",  "Determiner, prequalifier",
-    "POS",  "Possessive",
-    "PRP",  "Determiner, possessive second",
-    "PRPS", "Determiner, possessive",
-    "RB",   "Adverb",
-    "RBR",  "Adverb, comparative",
-    "RBS",  "Adverb, superlative",
-    "RP",   "Adverb, particle",
-    "SYM",  "Symbol",
-    "TO",   "Preposition",
-    "UH",   "Interjection",
-    "VB",   "Verb, infinitive",
-    "VBD",  "Verb, past tense",
-    "VBG",  "Verb, gerund",
-    "VBN",  "Verb, past/passive participle",
-    "VBP",  "Verb, base present form",
-    "VBZ",  "Verb, present 3SG -s form",
-    "WDT",  "Determiner, question",
-    "WP",   "Pronoun, question",
-    "WPS",  "Determiner, possessive & question",
-    "WRB",  "Adverb, question",
-    "PP",   "Punctuation, sentence ender",
-    "PPC",  "Punctuation, comma",
-    "PPD",  "Punctuation, dollar sign",
-    "PPL",  "Punctuation, quotation mark left",
-    "PPR",  "Punctuation, quotation mark right",
-    "PPS",  "Punctuation, colon, semicolon, elipsis",
-    "LRB",  "Punctuation, left bracket",
-    "RRB",  "Punctuation, right bracket"
-    ]
-  tags = tags.collect{|t| t.downcase.gsub(/[\.\,\'\-\s]+/, '_')}
-  tags = tags.collect{|t| t.gsub(/\&/, "and").gsub(/\//, "or")}
+    'CC',   'Conjunction, coordinating',
+    'CD',   'Adjective, cardinal number',
+    'DET',  'Determiner',
+    'EX',   'Pronoun, existential there',
+    'FW',   'Foreign words',
+    'IN',   'Preposition / Conjunction',
+    'JJ',   'Adjective',
+    'JJR',  'Adjective, comparative',
+    'JJS',  'Adjective, superlative',
+    'LS',   'Symbol, list item',
+    'MD',   'Verb, modal',
+    'NN',   'Noun',
+    'NNP',  'Noun, proper',
+    'NNPS', 'Noun, proper, plural',
+    'NNS',  'Noun, plural',
+    'PDT',  'Determiner, prequalifier',
+    'POS',  'Possessive',
+    'PRP',  'Determiner, possessive second',
+    'PRPS', 'Determiner, possessive',
+    'RB',   'Adverb',
+    'RBR',  'Adverb, comparative',
+    'RBS',  'Adverb, superlative',
+    'RP',   'Adverb, particle',
+    'SYM',  'Symbol',
+    'TO',   'Preposition',
+    'UH',   'Interjection',
+    'VB',   'Verb, infinitive',
+    'VBD',  'Verb, past tense',
+    'VBG',  'Verb, gerund',
+    'VBN',  'Verb, past/passive participle',
+    'VBP',  'Verb, base present form',
+    'VBZ',  'Verb, present 3SG -s form',
+    'WDT',  'Determiner, question',
+    'WP',   'Pronoun, question',
+    'WPS',  'Determiner, possessive & question',
+    'WRB',  'Adverb, question',
+    'PP',   'Punctuation, sentence ender',
+    'PPC',  'Punctuation, comma',
+    'PPD',  'Punctuation, dollar sign',
+    'PPL',  'Punctuation, quotation mark left',
+    'PPR',  'Punctuation, quotation mark right',
+    'PPS',  'Punctuation, colon, semicolon, elipsis',
+    'LRB',  'Punctuation, left bracket',
+    'RRB',  'Punctuation, right bracket'
+  ]
+  tags = tags.collect { |t| t.downcase.gsub(/[\.\,\'\-\s]+/, '_') }
+  tags = tags.collect { |t| t.gsub(/\&/, 'and').gsub(/\//, 'or') }
   TAGS = Hash[*tags]
 
   # Hash storing config values:
@@ -177,7 +176,7 @@ class EngTagger
   # Take a hash of parameters that override default values.
   # See above for details.
   def initialize(params = {})
-    @conf = Hash.new
+    @conf = {}
     @conf[:unknown_word_tag] = ''
     @conf[:stem] = false
     @conf[:weight_noun_phrases] = false
@@ -192,10 +191,10 @@ class EngTagger
     # assuming that we start analyzing from the beginninga new sentence...
     @conf[:current_tag] = 'pp'
     @conf.merge!(params)
-    unless File.exists?(@conf[:word_path]) and File.exists?(@conf[:tag_path])
+    unless File.exist?(@conf[:word_path]) and File.exist?(@conf[:tag_path])
       print "Couldn't locate POS lexicon, creating a new one" if @conf[:debug]
-      @@hmm = Hash.new
-      @@lexicon = Hash.new
+      @@hmm = {}
+      @@lexicon = {}
     else
       lexf = File.open(@conf[:word_path], 'r')
       @@lexicon = Marshal.load(lexf)
@@ -216,16 +215,16 @@ class EngTagger
     return nil unless valid_text(text)
     tagged = []
     words = clean_text(text)
-    tags = Array.new
+    tags = []
     words.each do |word|
       cleaned_word = clean_word(word)
       tag = assign_tag(@conf[:current_tag], cleaned_word)
-      @conf[:current_tag] = tag = (tag and tag != "") ? tag : 'nn'
+      @conf[:current_tag] = tag = (tag and tag != '') ? tag : 'nn'
       tag = EngTagger.explain_tag(tag) if verbose
       tagged << '<' + tag + '>' + word + '</' + tag + '>'
     end
     reset
-    return tagged.join(' ')
+    tagged.join(' ')
   end
 
   # Given a text string, return as many nouns and noun phrases as possible.
@@ -238,7 +237,7 @@ class EngTagger
   def get_words(text)
     return false unless valid_text(text)
     tagged = add_tags(text)
-    if(@conf[:longest_noun_phrase] <= 1)
+    if (@conf[:longest_noun_phrase] <= 1)
       return get_nouns(tagged)
     else
       return get_noun_phrases(tagged)
@@ -251,27 +250,27 @@ class EngTagger
     return nil unless valid_text(text)
     tagged = add_tags(text, verbose)
     tagged = tagged.gsub(/<\w+>([^<]+)<\/(\w+)>/o) do
-      $1 + '/' + $2.upcase
+      Regexp.last_match(1) + '/' + Regexp.last_match(2).upcase
     end
-    return tagged
+    tagged
   end
 
   # Return an array of sentences (without POS tags) from a text.
   def get_sentences(text)
     return nil unless valid_text(text)
     tagged = add_tags(text)
-    sentences = Array.new
+    sentences = []
     tagged.split(/<\/pp>/).each do |line|
       sentences << strip_tags(line)
     end
     sentences = sentences.map do |sentence|
-      sentence.gsub(Regexp.new(" ('s?) ")){$1 + ' '}
-      sentence.gsub(Regexp.new(" (\W+) ")){$1 + ' '}
-      sentence.gsub(Regexp.new(" (`+) ")){' ' + $1}
-      sentence.gsub(Regexp.new(" (\W+)$")){$1}
-      sentence.gsub(Regexp.new("^(`+) ")){$1}
+      sentence.gsub(Regexp.new(" ('s?) ")) { Regexp.last_match(1) + ' ' }
+      sentence.gsub(Regexp.new(" (\W+) ")) { Regexp.last_match(1) + ' ' }
+      sentence.gsub(Regexp.new(' (`+) ')) { ' ' + Regexp.last_match(1) }
+      sentence.gsub(Regexp.new(" (\W+)$")) { Regexp.last_match(1) }
+      sentence.gsub(Regexp.new('^(`+) ')) { Regexp.last_match(1) }
     end
-    return sentences
+    sentences
   end
 
   # Given a POS-tagged text, this method returns a hash of all proper nouns
@@ -286,7 +285,7 @@ class EngTagger
     end
     nnp = Hash.new(0)
     trimmed.each do |n|
-      next unless n.length < 100  # sanity check on word length
+      next unless n.length < 100 # sanity check on word length
       nnp[n] += 1 unless n =~ /\A\s*\z/
     end
     # Now for some fancy resolution stuff...
@@ -299,7 +298,7 @@ class EngTagger
         # Make a (naive) acronym out of this name
         acronym = words.map do |word|
           /\A([a-z])[a-z]*\z/ =~ word
-          $1
+          Regexp.last_match(1)
         end.join ''
         # If that acronym has been seen,
         # remove it and add the values to
@@ -310,7 +309,7 @@ class EngTagger
         end
       end
     end
-    return nnp
+    nnp
   end
 
   # Given a POS-tagged text, this method returns all nouns and their
@@ -327,7 +326,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_infinitive_verbs(tagged)
@@ -342,7 +341,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_past_tense_verbs(tagged)
@@ -357,7 +356,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_gerund_verbs(tagged)
@@ -372,7 +371,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_passive_verbs(tagged)
@@ -387,9 +386,8 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
-
 
   def get_base_present_verbs(tagged)
     return nil unless valid_text(tagged)
@@ -403,7 +401,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_present_verbs(tagged)
@@ -418,7 +416,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_adjectives(tagged)
@@ -433,7 +431,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_comparative_adjectives(tagged)
@@ -448,7 +446,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   def get_superlative_adjectives(tagged)
@@ -463,7 +461,7 @@ class EngTagger
       next unless n.length < 100  # sanity check on word length
       ret[n] += 1 unless n =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   # Given a POS-tagged text, this method returns only the maximal noun phrases.
@@ -475,10 +473,10 @@ class EngTagger
     end
     ret = Hash.new(0)
     mn_phrases.each do |p|
-      p = stem(p) unless p =~ /\s/  # stem single words
+      p = stem(p) unless p =~ /\s/ # stem single words
       ret[p] += 1 unless p =~ /\A\s*\z/
     end
-    return ret
+    ret
   end
 
   # Similar to get_words, but requires a POS-tagged text as an argument.
@@ -495,11 +493,11 @@ class EngTagger
       mn_phrases += m.split(phrase_ext)
     end
     mn_phrases.each do |mnp|
-     # Split the phrase into an array of words, and create a loop for each word,
-     # shortening the phrase by removing the word in the first position.
-     # Record the phrase and any single nouns that are found
+      # Split the phrase into an array of words, and create a loop for each word,
+      # shortening the phrase by removing the word in the first position.
+      # Record the phrase and any single nouns that are found
       words = mnp.split
-      words.length.times do |i|
+      words.length.times do |_i|
         found[words.join(' ')] += 1 if words.length > 1
         w = words.shift
         found[w] += 1 if w =~ /#{NN}/
@@ -514,19 +512,19 @@ class EngTagger
       word_count = space_count.length + 1
       # Throttle MNPs if necessary
       next if word_count > @conf[:longest_noun_phrase]
-      k = stem(k) unless word_count > 1  # stem single words
+      k = stem(k) unless word_count > 1 # stem single words
       multiplier = 1
       multiplier = word_count if @conf[:weight_noun_phrases]
       ret[k] += multiplier * v
     end
-    return ret
+    ret
   end
 
   # Reads some included corpus data and saves it in a stored hash on the
   # local file system. This is called automatically if the tagger can't
   # find the stored lexicon.
   def install
-    puts "Creating part-of-speech lexicon" if @conf[:debug]
+    puts 'Creating part-of-speech lexicon' if @conf[:debug]
     load_tags(@conf[:tag_lex])
     load_words(@conf[:word_lex])
     load_words(@conf[:unknown_lex])
@@ -558,7 +556,7 @@ class EngTagger
   # turned off with the class parameter @conf[:stem] => false.
   def stem(word)
     return word unless @conf[:stem]
-    return word.stem
+    word.stem
   end
 
   # This method will reset the preceeding tag to a sentence ender (PP).
@@ -571,7 +569,7 @@ class EngTagger
   def valid_text(text)
     if !text
       # there's nothing to parse
-      "method call on uninitialized variable" if @conf[:debug]
+      'method call on uninitialized variable' if @conf[:debug]
       return false
     elsif /\A\s*\z/ =~ text
       # text is an empty string, nothing to parse
@@ -585,10 +583,10 @@ class EngTagger
   # Return a text string with the part-of-speech tags removed
   def strip_tags(tagged, downcase = false)
     return nil unless valid_text(tagged)
-    text = tagged.gsub(/<[^>]+>/m, "")
-    text = text.gsub(/\s+/m, " ")
-    text = text.gsub(/\A\s*/, "")
-    text = text.gsub(/\s*\z/, "")
+    text = tagged.gsub(/<[^>]+>/m, '')
+    text = text.gsub(/\s+/m, ' ')
+    text = text.gsub(/\A\s*/, '')
+    text = text.gsub(/\s*\z/, '')
     if downcase
       return text.downcase
     else
@@ -613,7 +611,7 @@ class EngTagger
       tokenized += split_punct(line)
     end
     words = split_sentences(tokenized)
-    return words
+    words
   end
 
   # This handles all of the trailing periods, keeping those that
@@ -635,14 +633,14 @@ class EngTagger
                 va wash wis wisc wy wyo usafa alta man ont que sask yuk)
     month  = %w(jan feb mar apr may jun jul aug sep sept oct nov dec)
     misc   = %w(vs etc no esp)
-    abbr = Hash.new
+    abbr = {}
     [people, army, inst, place, comp, state, month, misc].flatten.each do |i|
       abbr[i] = true
     end
-    words = Array.new
-    tokenized.each_with_index do |t, i|
+    words = []
+    tokenized.each_with_index do |_t, i|
       if tokenized[i + 1] and tokenized [i + 1] =~ /[A-Z\W]/ and tokenized[i] =~ /\A(.+)\.\z/
-        w = $1
+        w = Regexp.last_match(1)
         # Don't separate the period off words that
         # meet any of the following conditions:
         #
@@ -650,7 +648,7 @@ class EngTagger
         # 2. It is only one letter long: Alfred E. Sloan
         # 3. It has a repeating letter-dot: U.S.A. or J.C. Penney
         unless abbr[w.downcase] or w =~ /\A[a-z]\z/i or w =~ /[a-z](?:\.[a-z])+\z/i
-          words <<  w
+          words << w
           words << '.'
           next
         end
@@ -659,10 +657,10 @@ class EngTagger
     end
     # If the final word ends in a period..
     if words[-1] and words[-1] =~ /\A(.*\w)\.\z/
-      words[-1] = $1
+      words[-1] = Regexp.last_match(1)
       words.push '.'
     end
-    return words
+    words
   end
 
   # Separate punctuation from words, where appropriate. This leaves trailing
@@ -671,40 +669,40 @@ class EngTagger
     # If there's no punctuation, return immediately
     return [text] if /\A\w+\z/ =~ text
     # Sanity checks
-    text = text.gsub(/\W{10,}/o, " ")
+    text = text.gsub(/\W{10,}/o, ' ')
 
     # Put quotes into a standard format
-    text = text.gsub(/`(?!`)(?=.*\w)/o, "` ") # Shift left quotes off text
-    text = text.gsub(/"(?=.*\w)/o, " `` ") # Convert left quotes to ``
-    text = text.gsub(/(\W|^)'(?=.*\w)/o){$1 ? $1 + " ` " : " ` "} # Convert left quotes to `
+    text = text.gsub(/`(?!`)(?=.*\w)/o, '` ') # Shift left quotes off text
+    text = text.gsub(/"(?=.*\w)/o, ' `` ') # Convert left quotes to ``
+    text = text.gsub(/(\W|^)'(?=.*\w)/o) { Regexp.last_match(1) ? Regexp.last_match(1) + ' ` ' : ' ` ' } # Convert left quotes to `
     text = text.gsub(/"/, " '' ") # Convert (remaining) quotes to ''
-    text = text.gsub(/(\w)'(?!')(?=\W|$)/o){$1 + " ' "} # Separate right single quotes
+    text = text.gsub(/(\w)'(?!')(?=\W|$)/o) { Regexp.last_match(1) + " ' " } # Separate right single quotes
 
     # Handle all other punctuation
-    text = text.gsub(/--+/o, " - ") # Convert and separate dashes
-    text = text.gsub(/,(?!\d)/o, " , ") # Shift commas off everything but numbers
-    text = text.gsub(/:/o, " :") # Shift semicolons off
-    text = text.gsub(/(\.\.\.+)/o){" " + $1 + " "} # Shift ellipses off
-    text = text.gsub(/([\(\[\{\}\]\)])/o){" " + $1 + " "} # Shift off brackets
-    text = text.gsub(/([\!\?#\$%;~|])/o){" " + $1 + " "} # Shift off other ``standard'' punctuation
+    text = text.gsub(/--+/o, ' - ') # Convert and separate dashes
+    text = text.gsub(/,(?!\d)/o, ' , ') # Shift commas off everything but numbers
+    text = text.gsub(/:/o, ' :') # Shift semicolons off
+    text = text.gsub(/(\.\.\.+)/o) { ' ' + Regexp.last_match(1) + ' ' } # Shift ellipses off
+    text = text.gsub(/([\(\[\{\}\]\)])/o) { ' ' + Regexp.last_match(1) + ' ' } # Shift off brackets
+    text = text.gsub(/([\!\?#\$%;~|])/o) { ' ' + Regexp.last_match(1) + ' ' } # Shift off other ``standard'' punctuation
 
     # English-specific contractions
-    text = text.gsub(/([A-Za-z])'([dms])\b/o){$1 + " '" + $2}  # Separate off 'd 'm 's
-    text = text.gsub(/n't\b/o, " n't")                     # Separate off n't
-    text = text.gsub(/'(ve|ll|re)\b/o){" '" + $1}         # Separate off 've, 'll, 're
+    text = text.gsub(/([A-Za-z])'([dms])\b/o) { Regexp.last_match(1) + " '" + Regexp.last_match(2) } # Separate off 'd 'm 's
+    text = text.gsub(/n't\b/o, " n't") # Separate off n't
+    text = text.gsub(/'(ve|ll|re)\b/o) { " '" + Regexp.last_match(1) } # Separate off 've, 'll, 're
     result = text.split(' ')
-    return result
+    result
   end
 
   # Given a preceding tag, assign a tag word. Called by the add_tags method.
   # This method is a modified version of the Viterbi algorithm for part-of-speech tagging
   def assign_tag(prev_tag, word)
-    if word == "-unknown-"
+    if word == '-unknown-'
       # classify unknown words accordingly
       return @conf[:unknown_word_tag]
-    elsif word == "-sym-"
+    elsif word == '-sym-'
       # If this is a symbol, tag it as a symbol
-      return "sym"
+      return 'sym'
     end
     best_so_far = 0
     w = @@lexicon[word]
@@ -712,7 +710,7 @@ class EngTagger
 
     # TAG THE TEXT: What follows is a modified version of the Viterbi algorithm
     # which is used in most POS taggers
-    best_tag = ""
+    best_tag = ''
     t[prev_tag].keys.each do |tag|
       # With @config[:relax] set, this method
       # will also include any `open classes' of POS tags
@@ -734,7 +732,7 @@ class EngTagger
         best_tag = tag
       end
     end
-    return best_tag
+    best_tag
   end
 
   # This method determines whether a word should be considered in its
@@ -759,46 +757,46 @@ class EngTagger
   # metric. Called by the clean_word method.
   def classify_unknown_word(word)
     if /[\(\{\[]/ =~ word  # Left brackets
-      classified = "*LRB*"
+      classified = '*LRB*'
     elsif
       /[\)\}\]]/ =~ word   # Right brackets
-      classified = "*RRB*"
+      classified = '*RRB*'
     elsif /-?(?:\d+(?:\.\d*)?|\.\d+)\z/ =~ word # Floating point number
-      classified = "*NUM*"
-    elsif /\A\d+[\d\/:-]+\d\z/ =~ word  # Other number constructs
-      classified = "*NUM*"
+      classified = '*NUM*'
+    elsif /\A\d+[\d\/:-]+\d\z/ =~ word # Other number constructs
+      classified = '*NUM*'
     elsif /\A-?\d+\w+\z/o =~ word        # Ordinal number
-      classified = "*ORD*"
+      classified = '*ORD*'
     elsif /\A[A-Z][A-Z\.-]*\z/o =~ word  # Abbreviation (all caps)
-      classified = "-abr-"
-    elsif /\w-\w/o =~ word             # Hyphenated word
+      classified = '-abr-'
+    elsif /\w-\w/o =~ word # Hyphenated word
       /-([^-]+)\z/ =~ word
-      h_suffix = $1
+      h_suffix = Regexp.last_match(1)
       if h_suffix and (@@lexicon[h_suffix] and @@lexicon[h_suffix]['jj'])
         # last part of this is defined as an adjective
-        classified = "-hyp-adj-"
+        classified = '-hyp-adj-'
       else
         # last part of this is not defined as an adjective
-        classified = "-hyp-"
+        classified = '-hyp-'
       end
     elsif /\A\W+\z/o =~ word
-      classified = "-sym-"  # Symbol
+      classified = '-sym-'  # Symbol
     elsif word == ucfirst(word)
-      classified = "-cap-"  # Capitalized word
+      classified = '-cap-'  # Capitalized word
     elsif /ing\z/o =~ word
-      classified = "-ing-"  # Ends in 'ing'
+      classified = '-ing-'  # Ends in 'ing'
     elsif /s\z/o =~ word
-      classified = "-s-"    # Ends in 's'
+      classified = '-s-'    # Ends in 's'
     elsif /tion\z/o =~ word
-      classified = "-tion-" # Ends in 'tion'
+      classified = '-tion-' # Ends in 'tion'
     elsif /ly\z/o =~ word
-      classified = "-ly-"  # Ends in 'ly'
+      classified = '-ly-'  # Ends in 'ly'
     elsif /ed\z/o =~ word
-      classified = "-ed-"  # Ends in 'ed
+      classified = '-ed-'  # Ends in 'ed
     else
-      classified = "-unknown-" # Completely unknown
+      classified = '-unknown-' # Completely unknown
     end
-    return classified
+    classified
   end
 
   # This returns a compiled regexp for extracting maximal noun phrases
@@ -817,8 +815,8 @@ class EngTagger
                 # one or more nouns
                 (?:#{NN})+
            )*
-    /xo #/
-    return regex
+    /xo # /
+    regex
   end
 
   # Load the 2-grams into a hash from YAML data: This is a naive (but fast)
@@ -830,14 +828,15 @@ class EngTagger
     fh = File.open(path, 'r')
     while line = fh.gets
       /\A"?([^{"]+)"?: \{ (.*) \}/ =~ line
-      next unless $1 and $2
-      key, data = $1, $2
-      tags = Hash.new
+      next unless Regexp.last_match(1) and Regexp.last_match(2)
+      key = Regexp.last_match(1)
+      data = Regexp.last_match(2)
+      tags = {}
       items = data.split(/,\s+/)
       pairs = {}
       items.each do |i|
         /([^:]+):\s*(.+)/ =~ i
-        pairs[$1] = $2.to_f
+        pairs[Regexp.last_match(1)] = Regexp.last_match(2).to_f
       end
       @@hmm[key] = pairs
     end
@@ -853,21 +852,22 @@ class EngTagger
     fh = File.open(path, 'r')
     while line = fh.gets
       /\A"?([^{"]+)"?: \{ (.*) \}/ =~ line
-      next unless $1 and $2
-      key, data = $1, $2
-      tags = Hash.new
+      next unless Regexp.last_match(1) and Regexp.last_match(2)
+      key = Regexp.last_match(1)
+      data = Regexp.last_match(2)
+      tags = {}
       items = data.split(/,\s+/)
       pairs = {}
       items.each do |i|
         /([^:]+):\s*(.+)/ =~ i
-        pairs[$1] = $2.to_f
+        pairs[Regexp.last_match(1)] = Regexp.last_match(2).to_f
       end
       @@lexicon[key] = pairs
     end
     fh.close
   end
 
-  #memoize the stem and assign_tag methods
-  memoize("stem")
-  memoize("assign_tag")
+  # memoize the stem and assign_tag methods
+  memoize('stem')
+  memoize('assign_tag')
 end

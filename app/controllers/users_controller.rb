@@ -3,26 +3,22 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, only: [:edit, :destroy, :update]
   before_action :check_valid, only: [:edit, :destroy, :update]
- 
+
   # GET /users/new
   def new
     # If a user logged in, redirect to articles page
-    if current_user
-      redirect_to articles_path
-    end
+    redirect_to articles_path if current_user
     @user = User.new
   end
-
 
   # GET /users/1/edit
   def edit
   end
 
-
   # user /users
   # user /users.json
   def create
-    @user = User.new(user_params)  
+    @user = User.new(user_params)
     respond_to do |format|
       if @user.save
         log_in @user
@@ -60,23 +56,22 @@ class UsersController < ApplicationController
     end
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id]) 
-    end
 
-    # Check the authentication for :edit, :update, :destroy
-    def check_valid
-      unless @user == current_user
-        render :status => :forbidden, :text => "HTTP Error 403 Forbidden"
-      end
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :bio, :username, :password, :password_confirmation, :interest_list, :subscribe)
+  # Check the authentication for :edit, :update, :destroy
+  def check_valid
+    unless @user == current_user
+      render status: :forbidden, text: 'HTTP Error 403 Forbidden'
     end
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :bio, :username, :password, :password_confirmation, :interest_list, :subscribe)
+  end
 end

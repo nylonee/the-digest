@@ -6,10 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
-Source.create(name: "The Guardian")
-Source.create(name: "The SBS")
-Source.create(name: "The Sydney Morning Herald")
-Source.create(name: "The New York Times")
-Source.create(name: "The ABC")
-Source.create(name: "The Age")
+Source.create(name: 'The Guardian')
+Source.create(name: 'The SBS')
+Source.create(name: 'The Sydney Morning Herald')
+Source.create(name: 'The New York Times')
+Source.create(name: 'The ABC')
+Source.create(name: 'The Age')
