@@ -16,7 +16,8 @@
 * ~~Add administrator URL pages~~
 * ~~Change async coroutines back to standard (db can't handle it)~~
 * ~~Move db commits to end of transaction loops~~
-* Paginate articles (5 per page)
+* ~~Paginate articles (10 per page)~~
+* ~~Users should be able to search for articles~~
 * ~~Find a gem for tagging, searching, emails, etc.~~
 
 ## Lina

@@ -40,16 +40,16 @@ class ArticlesController < ApplicationController
 
   # Show all the articles which match the keyword
   def my_search
-    keywords = params[:search].downcase
+    keywords = params[:search].downcase.split(',')
 
     tags = Article.tagged_with(keywords, any: true).uniq
-    titles = Article.all.select { |a| a.title.downcase.in?(keywords) || keywords.in?(a.title.downcase) }.uniq
+    titles = Article.all.select { |a| keywords.include?(a.title.downcase) }.uniq
     begin
-      summarys = Article.all.select { |a| a.summary.downcase.in?(keywords) || keywords.in?(a.simmary.downcase) }.uniq
+      summarys = Article.all.select { |a| keywords.include?(a.summary.downcase) }.uniq
     rescue NoMethodError
       summarys = []
     end
-    sources = Article.all.select { |a| a.source.name.downcase.in?(keywords) || keywords.in?(a.source.name.downcase) }.uniq
+    sources = Article.all.select { |a| keywords.include?(a.source.name.downcase) }.uniq
 
     weight_dictionary = {}
 
@@ -82,10 +82,16 @@ class ArticlesController < ApplicationController
       end
     end
 
-    @articles = weight_dictionary.sort_by{|article, weight| article.date_time}.sort_by {|article, weight| weight}.reverse.to_h.keys
-    @articles = @articles.paginate(page: params[:page], per_page: 10)
-    @page_title = 'Results for search: "' + params[:search] + '"'
-    render 'index'
+    unless !weight_dictionary.nil? || !weight_dictionary.empty?
+      @articles = [].paginate(page: params[:page], per_page: 10)
+      @page_title = 'No results found for: "' + params[:search] + '"'
+      render 'index'
+    else
+      @articles = weight_dictionary.sort_by{|article, weight| article.date_time}.sort_by {|article, weight| weight}.reverse.to_h.keys
+      @articles = @articles.paginate(page: params[:page], per_page: 10)
+      @page_title = 'Results for search: "' + params[:search] + '"'
+      render 'index'
+    end
   end
 
   private
