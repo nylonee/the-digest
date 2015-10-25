@@ -1,43 +1,29 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'alchemy_api'
+require 'indico'
 
 module Tag
 
   # Tag the given article with its summary
-  # Uses Alchemy ruby gem
+  # Uses Indico ruby gem
   class TagBySummary
 
     def initialize
-      # get the api key tessa
-      #AlchemyAPI.key = '7c716e88e4261f02196b83ce0abd59637e2cf8fc'
-
-      # Nihal
-			AlchemyAPI.key = 'c034f2a7188c38fd165d49a67cf50650c7003d74'      
-
-      @a_entities = AlchemyAPI::EntityExtraction.new()
-      @a_concepts = AlchemyAPI::ConceptTagging.new()
-
+      # get the api key
+      Indico.api_key = '18bdf53f8c24bc862f85ca021583cfe3' 
     end
 
 
   	def tag_by_summary (article)
 
-      # Initialize entities and concepts
-      a_entities ||= []
-      a_concepts ||= []
+      # Initialize keywords
+      ind_keywords = Indico.keywords (article.title)
 
-			# get all the entities from summary and put in the tag list
-			a_entities = @a_entities.search(text: article.summary)
-			a_entities.each do |e|
-				article.tag_list << e['text']
-			end
+      # Get the keywords
+      ind_keywords.each do |keyword, value|
+        article.tag_list << keyword
+      end
 
-			# get all the concepts from summary and put in the tag list
-			a_concepts = @a_concepts.search(text: article.summary)
-			a_concepts.each do |c|
-				article.tag_list << c['text']
-			end
       article.save
 		end
 

@@ -8,6 +8,7 @@ gem 'alchemy-api-rb', :require => 'alchemy_api'
 
 gem 'indico'
 
+gem 'mandrill-api'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'

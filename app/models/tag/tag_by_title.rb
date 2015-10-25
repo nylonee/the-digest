@@ -17,6 +17,7 @@ module Tag
 
       # create an client object with the api key
       @oc = OpenCalais::Client.new(api_key: api_key)
+
     end
 
   	def tag_by_title (article)
@@ -29,6 +30,10 @@ module Tag
 				oc_response.topics.each do |topic|
 					article.tag_list << topic[:name].split('&')
 				end
+
+        oc_response.tags.each do |tag|
+          article.tag_list << tag[:name].split('&')
+        end
 
   		end
 
