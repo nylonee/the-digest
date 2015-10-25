@@ -22,11 +22,11 @@ class AdminController < ApplicationController
     # Get mandril object
     mandrill = Mandrill::API.new 'SyKEz-QytC97dIODlvKQoQ'
 
-    # Set the elementary content string
-    content = "Here is the list of interesting articles for you\n\n"
-
   	# Send a digest to each user  
   	users.each do |user|
+      # Set the elementary content string
+      content = "Here is the list of interesting articles for you\n\n"
+
   		# Get all the interesting articles and order by date_time
   		articles = Article.tagged_with(user.interest_list, :any => true).order(date_time: :desc)
 
