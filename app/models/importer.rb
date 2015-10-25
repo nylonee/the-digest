@@ -53,40 +53,44 @@ class Importer
 
 	# tag all new articles
 	def tag_all
-		# tag article one by one
-		@new_articles.each do |a|
-			begin
-				@tsource.tag_by_source(a)
-			rescue
-				puts "Tagging article by source failed"
+
+		ActiveRecord::Base.transaction do
+			# tag article one by one
+			@new_articles.each do |a|
+				begin
+					@tsource.tag_by_source(a)
+				rescue
+					puts "Tagging article by source failed"
+				end
+
+				begin
+					@tauthor.tag_by_author(a)
+				rescue
+					puts "Tagging article by author failed"
+				end
+
+				begin
+					@tcategory.tag_by_category(a)
+				rescue
+					puts "Tagging article by category failed"
+				end
+
+				begin
+					@tsummary.tag_by_summary(a)
+				rescue
+					puts "Tagging article by summary failed"
+				end
+
+				begin
+					@ttitle.tag_by_title(a)
+				rescue
+					puts "Tagging article by title failed"
+				end
+
+				a.tag_list = a.tag_list.uniq
+				a.save
 			end
 
-			begin
-				@tauthor.tag_by_author(a)
-			rescue
-				puts "Tagging article by author failed"
-			end
-
-			begin
-				@tcategory.tag_by_category(a)
-			rescue
-				puts "Tagging article by category failed"
-			end
-
-			begin
-				@tsummary.tag_by_summary(a)
-			rescue
-				puts "Tagging article by summary failed"
-			end
-
-			begin
-				@ttitle.tag_by_title(a)
-			rescue
-				puts "Tagging article by title failed"
-			end
-
-			a.tag_list = a.tag_list.uniq
-			a.save
 		end
 
 	end
