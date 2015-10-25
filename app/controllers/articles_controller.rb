@@ -43,13 +43,13 @@ class ArticlesController < ApplicationController
     keywords = params[:search].downcase
 
     tags = Article.tagged_with(keywords, :any => true).uniq
-    titles = Article.all.select{ |a| a.title.downcase.in?(keywords)}.uniq
+    titles = Article.all.select{ |a| a.title.downcase.in?(keywords) || keywords.in?(a.title.downcase)}.uniq
     begin
-      summarys = Article.all.select{ |a| a.summary.downcase.in?(keywords)}.uniq
+      summarys = Article.all.select{ |a| a.summary.downcase.in?(keywords) || keywords.in?(a.simmary.downcase)}.uniq
     rescue NoMethodError
       summarys = []
     end
-    sources = Article.all.select{|a| a.source.name.downcase.in?(keywords)}.uniq
+    sources = Article.all.select{|a| a.source.name.downcase.in?(keywords) || keywords.in?(a.source.name.downcase)}.uniq
 
     weight_dictionary = {}
 
