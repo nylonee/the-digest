@@ -1,3 +1,4 @@
+# Import necessary ruby gems
 require 'rubygems'
 require 'bundler/setup'
 require 'indico'

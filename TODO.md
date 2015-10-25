@@ -1,8 +1,12 @@
-## Tessa(Hyeru)
+## Tessa(Hyeri)
 * ~~Turn importers into scrapers~~
 * ~~Put scrapers into scraper module~~
 * ~~Add categories attribute into Articles~~
-* Find a gem for tagging, searching, emails, etc.
+* ~~Find a gem for tagging, searching, emails, etc.~~
+* ~~Complete tag module with 5 different tagging classes~~
+* ~~Do compiling and emailing functionality~~
+* ~~Create admin controller dealing with the two admin urls~~*
+
 
 ## Nihal
 * ~~Add The Age importer~~

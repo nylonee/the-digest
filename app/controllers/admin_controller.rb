@@ -1,43 +1,47 @@
-#include mindrill module
+#include mandrill module
 require 'rubygems'
 require 'bundler/setup'
 require 'mandrill'
 
-
+# Admin controller class dealing with the two admin get requests(scrape, email)
 class AdminController < ApplicationController
 
-  # maximum number of articles per one email
+  # Maximum number of articles per one email
   MAX_NUM_ARTICLES = 10
 
-
-	# send digest email to subscribers
-	# the digest includes title and link to each article
+	# Send digest email to all subscribers
+	# The digest includes titles and links of articles
   def email
+    
+    # redirect to the first page of the website
+    redirect_to login_path
 
-  	# Get all users to ask to send a digest 
+  	# Get all users who subscribe 
     users = User.where(subscribe: true)
 
     # Get mandril object
     mandrill = Mandrill::API.new 'SyKEz-QytC97dIODlvKQoQ'
+
+    # Set the elementary content string
     content = "Here is the list of interesting articles for you\n\n"
 
-  	# Send a digest to each user who asks to  
+  	# Send a digest to each user  
   	users.each do |user|
-  		# get all the interesting articles and order by date_time
+  		# Get all the interesting articles and order by date_time
   		articles = Article.tagged_with(user.interest_list, :any => true).order(date_time: :desc)
 
-      # get at most 10 new interesting articles
+      # Get at most 10 new interesting articles
       num = 0
       articles.each do |article|
-
-        # if 10 interesting articles are extracted, break the loop
+        # If 10 interesting articles are already extracted, break the loop
         if num >= MAX_NUM_ARTICLES
           break
         end
 
-        # if this article is not linked to this user, include this to digest
+        # If this article has not been sent to this user, include this to digest
         if !user.articles.include? (article)
           user.articles << article
+          # Update content string
           content += make_paragraph(article.title, article.link)
           num += 1
         end
@@ -63,17 +67,14 @@ class AdminController < ApplicationController
             :from_email => 'thedigest@thedigest.com'
           }  
 
-      # send the message
+      # send the email
       sending = mandrill.messages.send message 
-
   	end
   	
-  	# redirect to the first page of the website
-  	redirect_to login_path
   end
 
 
-  # make a proper paragraph with title and link
+  # make a proper paragraph with title and link given
   def make_paragraph (title, link)
     paragraph = "Title: #{title}\n"
     paragraph += "Link: #{link}\n\n" 
@@ -85,9 +86,11 @@ class AdminController < ApplicationController
   	# import all the new articles
   	Importer.new.import_all
 
-
 		# redirect to the first page   	
   	redirect_to login_path
   end
 
 end
+
+
+

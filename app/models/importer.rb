@@ -6,6 +6,7 @@ include Tag
 class Importer
 
 	def initialize
+		# array to store all newly scraped articles
 		@new_articles = []
 
 		# Initialize the tagging classes
